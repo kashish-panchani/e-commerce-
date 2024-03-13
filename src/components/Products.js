@@ -1,6 +1,6 @@
 import React from "react";
 import { toast } from "react-toastify";
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,6 +8,7 @@ import Header from "../Header";
 // import ProductModal from "../ProductModal";
 import Footer from "../Footer";
 import ProductsDetail from "./ProductsDetail";
+import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -24,13 +25,14 @@ const Products = () => {
   const [showWishlist, setShowWishlist] = useState(false);
   const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
- 
+  const [showProductDetails, setShowProductDetails] = useState(false);
+  console.log("showProductDetails:", showProductDetails);
 
   const settings = {
     dots: true,
     // infinite: true,
     speed: 300,
-    autoplay: true, 
+    autoplay: true,
     autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -93,7 +95,7 @@ const Products = () => {
     setCurrentPage(1);
   };
   console.log("ishover", isHover);
-  
+
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -126,7 +128,7 @@ const Products = () => {
     if (cartItems.length < maxQuantity) {
       setCartItems([...cartItems, productWithQuantity]);
       setCount(count + 1);
-      setAddedToCart(true);   
+      setAddedToCart(true);
       toast.success("Item added to cart successfully");
     }
   };
@@ -134,8 +136,6 @@ const Products = () => {
   const toggleCartModal = () => {
     setIsCartModalOpen(true);
   };
-
- 
 
   const whishlistbtn = (productId, e) => {
     e.stopPropagation();
@@ -171,128 +171,128 @@ const Products = () => {
         handleSearchChange={handleSearchChange}
       />
 
-      
       {/* All products */}
-      <section className="text-gray-600  body-font ">
-        <div className="container py-36  mx-auto">
-          {searchTerm && filteredProducts.length === 0 ? (
-            <div className="text-center py-10 text-2xl font-semibold">
-              No products found
-            </div>
-          ) : (
-            <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 ">
-              {filteredProducts.slice(startIndex, endIndex).map((product) => (
-                <div
-                  key={product.id}
-                  className="p-6 md:w-1/3 sm:mb-0 mb-6"
-                  onClick={() => <ProductsDetail/>}
-                >
+      <Link to="/ProductsDetail">
+        <section className="text-gray-600  body-font ">
+          <div className="container py-36  mx-auto">
+            {searchTerm && filteredProducts.length === 0 ? (
+              <div className="text-center py-10 text-2xl font-semibold">
+                No products found
+              </div>
+            ) : (
+              <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 ">
+                {filteredProducts.slice(startIndex, endIndex).map((product) => (
                   <div
-                    className="rounded-lg hover:shadow-2xl
-                 cursor-pointer h-full bg-white px-10 py-4"
+                    key={product.id}
+                    className="p-6 md:w-1/3 sm:mb-0 mb-6"
+                    onClick={() => setShowProductDetails(true)}
                   >
-                    {/* ------------------------- */}
                     <div
-                      className="h-80 overflow-hidden "
-                      onMouseEnter={() => {
-                        setIshover(true);
-                        setIsHoverSetProduct(product.id);
-                      }}
-                      onMouseLeave={() => setIshover(false)}
+                      className="rounded-lg hover:shadow-2xl
+                 cursor-pointer h-full bg-white px-10 py-4"
                     >
-                      {isHoverSetProduct === product.id && isHover ? (
-                        <Slider {...settings}>
-                          {product.images.map((image, index) => (
-                            <div
-                              key={index}
-                              className="h-fit w-32  object-cover"
-                            >
-                              <img
-                                src={image}
-                                alt="image"
-                                className="h-72 w-fit "
-                                onClick={() => selectThumbnail(image)}
-                              />
-                            </div>
-                          ))}
-                        </Slider>
-                      ) : (
-                        <img
-                          alt={product.title}
-                          className="object-contain object-center h-full w-full"
-                          src={product.thumbnail}
-                        />
-                      )}
-                    </div>
-                    <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
-                      {product.title}
-                    </h2>
-                    <p className="text-lg text-ellipsis line-clamp-2 mt-2">
-                      {product.description}
-                    </p>
-                    <div className="flex pt-3">
-                      <p className="text-lg font-bold leading-relaxed">
-                        <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
-                        {product.price -
-                          parseInt(
-                            (product.price * product.discountPercentage) / 100
-                          )}
+                      {/* ------------------------- */}
+                      <div
+                        className="h-80 overflow-hidden "
+                        onMouseEnter={() => {
+                          setIshover(true);
+                          setIsHoverSetProduct(product.id);
+                        }}
+                        onMouseLeave={() => setIshover(false)}
+                      >
+                        {isHoverSetProduct === product.id && isHover ? (
+                          <Slider {...settings}>
+                            {product.images.map((image, index) => (
+                              <div
+                                key={index}
+                                className="h-fit w-32  object-cover"
+                              >
+                                <img
+                                  src={image}
+                                  alt="image"
+                                  className="h-72 w-fit "
+                                  onClick={() => selectThumbnail(image)}
+                                />
+                              </div>
+                            ))}
+                          </Slider>
+                        ) : (
+                          <img
+                            alt={product.title}
+                            className="object-contain object-center h-full w-full"
+                            src={product.thumbnail}
+                          />
+                        )}
+                      </div>
+                      <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
+                        {product.title}
+                      </h2>
+                      <p className="text-lg text-ellipsis line-clamp-2 mt-2">
+                        {product.description}
                       </p>
-                      <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
-                        <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
-                        {product.price}
-                      </p>
-                      <p className="text-base leading-relaxed font-bold text-red-500">
-                        ({product.discountPercentage}% off)
-                      </p>
-                    </div>
-                    <p className="text-lg leading-relaxed mt-2 py-1 w-20 border text-center font-semibold rounded-md">
-                      {product.rating}
-                      <i className="fa-solid fa-star pl-1 text-teal-500"></i>
-                    </p>
-                    <div className="flex justify-between">
-                      <div>
-                        <p className="text-lg leading-relaxed  pt-5">
-                          <label
-                            htmlFor=""
-                            className="text-green-500 font-semibold"
-                          >
-                            In stock :{" "}
-                          </label>
-                          {product.stock}
+                      <div className="flex pt-3">
+                        <p className="text-lg font-bold leading-relaxed">
+                          <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
+                          {product.price -
+                            parseInt(
+                              (product.price * product.discountPercentage) / 100
+                            )}
+                        </p>
+                        <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
+                          <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
+                          {product.price}
+                        </p>
+                        <p className="text-base leading-relaxed font-bold text-red-500">
+                          ({product.discountPercentage}% off)
                         </p>
                       </div>
-                      {/* ----------BOX WISHLIST----- */}
-                      <div
-                        className={`border flex justify-center items-center ml-1 px-1 mt-4 py-1 w-36  ${
-                          wishlist.some((item) => item.id === product.id)
-                            ? "bg-slate-800 text-white "
-                            : ""
-                        }`}
-                      >
-                        {wishlist.some((item) => item.id === product.id) ? (
-                          <i className="fa-solid fa-heart text-rose-600 pl-2 text-2xl"></i>
-                        ) : (
-                          <i className="fa-regular fa-heart text-2xl  "></i>
-                        )}
-                        <label
-                          htmlFor=""
-                          className="font-semibold mx-2"
-                          onClick={(e) => whishlistbtn(product.id, e)}
+                      <p className="text-lg leading-relaxed mt-2 py-1 w-20 border text-center font-semibold rounded-md">
+                        {product.rating}
+                        <i className="fa-solid fa-star pl-1 text-teal-500"></i>
+                      </p>
+                      <div className="flex justify-between">
+                        <div>
+                          <p className="text-lg leading-relaxed  pt-5">
+                            <label
+                              htmlFor=""
+                              className="text-green-500 font-semibold"
+                            >
+                              In stock :{" "}
+                            </label>
+                            {product.stock}
+                          </p>
+                        </div>
+                        {/* ----------BOX WISHLIST----- */}
+                        <div
+                          className={`border flex justify-center items-center ml-1 px-1 mt-4 py-1 w-36  ${
+                            wishlist.some((item) => item.id === product.id)
+                              ? "bg-slate-800 text-white "
+                              : ""
+                          }`}
                         >
-                          {wishlist.some((item) => item.id === product.id)
-                            ? "WISHLISTED"
-                            : "WISHLIST"}
-                        </label>
+                          {wishlist.some((item) => item.id === product.id) ? (
+                            <i className="fa-solid fa-heart text-rose-600 pl-2 text-2xl"></i>
+                          ) : (
+                            <i className="fa-regular fa-heart text-2xl  "></i>
+                          )}
+                          <label
+                            htmlFor=""
+                            className="font-semibold mx-2"
+                            onClick={(e) => whishlistbtn(product.id, e)}
+                          >
+                            {wishlist.some((item) => item.id === product.id)
+                              ? "WISHLISTED"
+                              : "WISHLIST"}
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}  
-          {/* open model */}
-          {/* {isModalOpen && selectedProduct && (
+                ))}
+              </div>
+            )}
+            {/* open model */}
+            {/* {isModalOpen && selectedProduct && (
             <ProductModal
               selectedProduct={selectedProduct}
               closeModal={closeModal}
@@ -303,37 +303,38 @@ const Products = () => {
               whishlistbtn={whishlistbtn}
             />
           )} */}
-          <ProductsDetail/>
-          {!searchTerm || filteredProducts.length > perPage ? (
-            <div className="flex justify-center py-12">
-              <button
-                onClick={handlePrevPage}
-                className={`mx-2 px-5 py-3 text-lg border rounded-full ${
-                  currentPage === 1
-                    ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                    : "bg-blue-500 text-white"
-                }`}
-                disabled={currentPage === 1}
-              >
-                <i class="fa-solid fa-angle-left "></i>
-              </button>
-              <span className="pt-2 text-2xl ">page {currentPage} </span>
-              <button
-                onClick={handleNextPage}
-                className={`mx-2 px-5 text-lg py-3 border rounded-full
+            {showProductDetails && <ProductsDetail />}
+            {!searchTerm || filteredProducts.length > perPage ? (
+              <div className="flex justify-center py-12">
+                <button
+                  onClick={handlePrevPage}
+                  className={`mx-2 px-5 py-3 text-lg border rounded-full ${
+                    currentPage === 1
+                      ? "bg-gray-300 cursor-not-allowed text-gray-500"
+                      : "bg-blue-500 text-white"
+                  }`}
+                  disabled={currentPage === 1}
+                >
+                  <i class="fa-solid fa-angle-left "></i>
+                </button>
+                <span className="pt-2 text-2xl ">page {currentPage} </span>
+                <button
+                  onClick={handleNextPage}
+                  className={`mx-2 px-5 text-lg py-3 border rounded-full
                    ${
                      currentPage === totalPages
                        ? "bg-gray-300 cursor-not-allowed text-gray-500"
                        : "bg-blue-500 text-white"
                    }`}
-                disabled={currentPage === totalPages}
-              >
-                <i class="fa-solid fa-angle-right"></i>
-              </button>
-            </div>
-          ) : null}
-        </div>
-      </section>
+                  disabled={currentPage === totalPages}
+                >
+                  <i class="fa-solid fa-angle-right"></i>
+                </button>
+              </div>
+            ) : null}
+          </div>
+        </section>
+      </Link>
       <Footer />
     </div>
   );
