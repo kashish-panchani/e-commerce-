@@ -5,8 +5,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header";
-import ProductModal from "../ProductModal";
+// import ProductModal from "../ProductModal";
 import Footer from "../Footer";
+import ProductsDetail from "./ProductsDetail";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -92,6 +93,7 @@ const Products = () => {
     setCurrentPage(1);
   };
   console.log("ishover", isHover);
+  
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
@@ -183,7 +185,7 @@ const Products = () => {
                 <div
                   key={product.id}
                   className="p-6 md:w-1/3 sm:mb-0 mb-6"
-                  onClick={() => openModal(product)}
+                  onClick={() => <ProductsDetail/>}
                 >
                   <div
                     className="rounded-lg hover:shadow-2xl
@@ -290,7 +292,7 @@ const Products = () => {
             </div>
           )}  
           {/* open model */}
-          {isModalOpen && selectedProduct && (
+          {/* {isModalOpen && selectedProduct && (
             <ProductModal
               selectedProduct={selectedProduct}
               closeModal={closeModal}
@@ -300,7 +302,8 @@ const Products = () => {
               wishlist={wishlist}
               whishlistbtn={whishlistbtn}
             />
-          )}
+          )} */}
+          <ProductsDetail/>
           {!searchTerm || filteredProducts.length > perPage ? (
             <div className="flex justify-center py-12">
               <button

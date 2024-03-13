@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OpenModel = () => {
+const ProductsDetail = () => {
   return (
     <div>
       
@@ -8,4 +8,4 @@ const OpenModel = () => {
   )
 }
 
-export default OpenModel
+export default ProductsDetail
