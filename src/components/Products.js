@@ -14,6 +14,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedProductNew, setSelectedProductNew] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
@@ -25,7 +26,7 @@ const Products = () => {
   const [showWishlist, setShowWishlist] = useState(false);
   const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
-  const [showProductDetails, setShowProductDetails] = useState(false);
+  const [showProductDetails, setShowProductDetails] = useState(true);
   console.log("showProductDetails:", showProductDetails);
 
   const settings = {
@@ -39,7 +40,7 @@ const Products = () => {
   };
 
   const perPage = 30;
-  console.log("selectedProduct", selectedProduct);
+  console.log("selectedProduc::", selectedProduct);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`https://dummyjson.com/products?limit=0`);
@@ -94,14 +95,13 @@ const Products = () => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
-  console.log("ishover", isHover);
 
-  const openModal = useCallback((product) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-    const isInCart = cartItems?.some((item) => item.id === product.id);
-    setAddedToCart(isInCart);
-  });
+  // const openModal = useCallback((product) => {
+  //   setSelectedProduct(product);
+  //   setIsModalOpen(true);
+  //   const isInCart = cartItems?.some((item) => item.id === product.id);
+  //   setAddedToCart(isInCart);
+  // });
 
   const selectThumbnail = (image) => {
     setSelectedProduct((prevProduct) => ({
@@ -109,18 +109,19 @@ const Products = () => {
       thumbnail: image,
     }));
   };
-  const closeModal = () => {
-    setSelectedProduct(null);
-    setIsModalOpen(false);
-    setAddedToCart(false);
-  };
+
+  // const closeModal = () => {
+  //   setSelectedProduct(null);
+  //   setIsModalOpen(false);
+  //   setAddedToCart(false);
+  // };
   const addToCart = () => {
     const isAlreadyInCart = cartItems?.some(
       (item) => item.id === selectedProduct.id
     );
     if (isAlreadyInCart) {
       setIsCartModalOpen(true);
-      closeModal();
+      // closeModal();
       return;
     }
     const maxQuantity = 10;
@@ -159,6 +160,13 @@ const Products = () => {
     }
   };
 
+  const handleProductDetails = (product) => {
+    console.log("Received product:", product); // Add this line
+    setSelectedProductNew(product);
+    const isInCart = cartItems?.some((item) => item.id === product.id);
+    setAddedToCart(isInCart);
+  };
+
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = currentPage * perPage;
 
@@ -185,7 +193,7 @@ const Products = () => {
                   <div
                     key={product.id}
                     className="p-6 md:w-1/3 sm:mb-0 mb-6"
-                    onClick={() => setShowProductDetails(true)}
+                    onClick={() => handleProductDetails(product)}
                   >
                     <div
                       className="rounded-lg hover:shadow-2xl
@@ -303,7 +311,16 @@ const Products = () => {
               whishlistbtn={whishlistbtn}
             />
           )} */}
-            {showProductDetails && <ProductsDetail />}
+            {selectedProduct && showProductDetails && (
+              <ProductsDetail
+                setSelectedProductNew={setSelectedProductNew}
+                selectThumbnail={selectThumbnail}
+                addToCart={addToCart}
+                addedToCart={addedToCart}
+                wishlist={wishlist}
+                whishlistbtn={whishlistbtn}
+              />
+            )}
             {!searchTerm || filteredProducts.length > perPage ? (
               <div className="flex justify-center py-12">
                 <button
