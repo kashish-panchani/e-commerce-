@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Header2 from "../Header2";
 import Footer from "../Footer";
 import { Link } from "react-router-dom";
+import Header from "../Header";
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
 
@@ -44,22 +45,22 @@ const Cart = () => {
   return (
     <div>
       {/* <Header/> */}
-      <Header2 count={count} />
-      <div class="container mx-auto p-44">
+      <Header count={count} />
+      <div class="container mx-auto p-16">
         {cartItems.length === 0 ? (
-          <div className=" text-center  py-10 px-6  ">
+          <div className=" text-center px-6  ">
             <div className="flex justify-center items-center ">
               <img src="../empty.svg" alt="" className="w-96 h-96" />
             </div>
             <div c>
-              <p className="font-bold text-2xl">Hey,it feels so light!</p>
+              <p className="font-bold text-2xl pb-2">Hey,it feels so light!</p>
               <p className="text-base text-gray-400">
                 There is nothing in your cart.Let's add some items.{" "}
               </p>
             </div>
             <div>
               <Link to="/wishlist">
-                <button className="border border-blue-700  rounded-md p-5 m-10 text-blue-500 font-bold">
+                <button className="border border-blue-800  rounded-md py-4 px-10 m-10 text-blue-600 font-bold">
                   ADD ITEMS FROM WISHLIST
                 </button>
               </Link>

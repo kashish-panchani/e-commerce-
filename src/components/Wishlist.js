@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ProductModal from "../ProductModal";
 import Header2 from "../Header2";
 import Footer from "../Footer";
+import Header from "../Header";
 const Wishlist = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -132,8 +133,8 @@ const Wishlist = () => {
 
   console.log("wishlist.length", wishlist.length);
   return (
-    <div className=" bg-gray-100">
- <Header2 count={count}/>
+    <div>
+ <Header count={count}/>
       {isModalOpen && selectedProduct && (
         <ProductModal
           selectedProduct={selectedProduct}
@@ -209,18 +210,18 @@ const Wishlist = () => {
       ) : (
         <>
           <div>
-            <h1 className="pt-44 flex justify-center items-center font-semibold text-3xl">
+            <h1 className="pt-36 flex justify-center items-center font-bold text-gray-700 text-2xl">
               YOUR WISHLIST IS EMPTY
             </h1>
-            <p className="flex justify-center items-center text-3xl text-gray-500 py-5">
+            <p className="flex justify-center items-center text-xl text-gray-400 py-5  ">
               Add items that you like to your wishlist. Review them anytime and
               easily move them to the bag.
             </p>
             <div className="flex items-center justify-center">
-              <img src="../empty-wishlist.png" className=" py-10" />
+              <img src="../empty-wishlist.png" className=" py-3" />
             </div>
             <div className="flex justify-center items-center ">
-              <button className=" text-blue-600 text-2xl font-bold border rounded-lg border-blue-800 my-10 py-6 px-8 cursor-pointer">
+              <button className=" text-blue-600 text-xl font-bold border rounded-lg border-blue-800 my-10 py-4 px-14 cursor-pointer">
                 <Link to="/">CONTINUE SHOPPING</Link>
               </button>
             </div>

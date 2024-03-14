@@ -7,7 +7,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header";
 import ProductModal from "../ProductModal";
 import Footer from "../Footer";
-
+import banner from "../Images/heroimage.jpg";
+import ProductsDetail from "./ProductsDetail";
+import { Link } from "react-router-dom";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -95,6 +97,7 @@ const Products = () => {
     setIsModalOpen(true);
     const isInCart = cartItems?.some((item) => item.id === product.id);
     setAddedToCart(isInCart);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
 
   const selectThumbnail = (image) => {
@@ -157,7 +160,7 @@ const Products = () => {
   const endIndex = currentPage * perPage;
 
   return (
-    <div className=" bg-gray-100 ">
+    <div className=" bg-gray-100 overflow-hidden ">
       <Header
         count={count}
         toggleCartModal={toggleCartModal}
@@ -165,9 +168,34 @@ const Products = () => {
         handleSearchChange={handleSearchChange}
       />
 
-      {/* All products */}
+      {/* All products */}\
+      
+      <div className=" flex justify-center relative ">
+        <div className="w-full  ">
+          <img src={banner} alt="" className=" w-full" />
+        </div>
+        <div className="container mx-auto absolute py-80 w-96  left-28">
+          <p className="bghead   text-5xl text-white ">
+            Every purchase will be mad e with pleasure.
+          </p>
+          <p className="bghead flex text-xl my-5 text-white  ">
+            We work with global brands and have created an application for you
+            to do your shopping.
+          </p>
+          <div className="container mx-auto py-3 flex justify-center items-center w-screen  bg-white mt-32">
+          <p className="mr-10 ">
+            You are on myntra.com.You can also shop on myntra india for millions
+            of products with fast local delivery.{" "}
+            <a href="https://www.myntra.com/online-fashion-store">
+              Click here to go to myntra.in
+            </a>
+          </p>
+          </div>
+        </div>
+      </div>
+      <Link to="/ProductsDetail">
       <section className="text-gray-600  body-font ">
-        <div className="container py-36  mx-auto">
+        <div className="container mx-auto">
           {searchTerm && filteredProducts.length === 0 ? (
             <div className="text-center py-10 text-2xl font-semibold">
               No products found
@@ -220,7 +248,7 @@ const Products = () => {
                     <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
                       {product.title}
                     </h2>
-                    <p className="text-lg text-ellipsis line-clamp-2 mt-2">
+                    <p className="text-lg text-ellipsis line-clamp-1 mt-2">
                       {product.description}
                     </p>
                     <div className="flex pt-3">
@@ -243,9 +271,9 @@ const Products = () => {
                       {product.rating}
                       <i className="fa-solid fa-star pl-1 text-teal-500"></i>
                     </p>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between items-center">
                       <div>
-                        <p className="text-lg leading-relaxed  pt-6">
+                        <p className="text-lg leading-relaxed ">
                           <label
                             htmlFor=""
                             className="text-green-500 font-semibold"
@@ -282,17 +310,7 @@ const Products = () => {
             </div>
           )}
           {/* open model */}
-          {isModalOpen && selectedProduct && (
-            <ProductModal
-              selectedProduct={selectedProduct}
-              closeModal={closeModal}
-              selectThumbnail={selectThumbnail}
-              addToCart={addToCart}
-              addedToCart={addedToCart}
-              wishlist={wishlist}
-              whishlistbtn={whishlistbtn}
-            />
-          )}
+          {isModalOpen && selectedProduct && <ProductsDetail />}
           {!searchTerm || filteredProducts.length > perPage ? (
             <div className="flex justify-center py-12">
               <button
@@ -323,6 +341,7 @@ const Products = () => {
           ) : null}
         </div>
       </section>
+    </Link>
       <Footer />
     </div>
   );
