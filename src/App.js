@@ -4,7 +4,7 @@ import Products from "./components/Products";
 import Wishlist from "./components/Wishlist";
 import Login from "./Login";
 import Cart from "./components/Cart";
-import ProductsDetail from "./components/ProductsDetail";
+// import ProductsDetail from "./components/ProductsDetail";
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
         <Route path="/login" exact element={<Login />} />
         <Route path="/cart" exact element={<Cart />} />
         <Route path="/wishlist" exact element={<Wishlist />} />
-        <Route path="/ProductsDetail" exact element={<ProductsDetail />} />
+        {/* <Route path="/ProductsDetail" exact element={<ProductsDetail />} /> */}
       </Routes>
     </BrowserRouter>
   );

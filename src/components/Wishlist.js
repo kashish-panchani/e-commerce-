@@ -133,7 +133,7 @@ const Wishlist = () => {
   console.log("wishlist.length", wishlist.length);
   return (
     <div className=" bg-gray-100">
- <Header2/>
+ <Header2 count={count}/>
       {isModalOpen && selectedProduct && (
         <ProductModal
           selectedProduct={selectedProduct}
@@ -147,7 +147,7 @@ const Wishlist = () => {
       )}
       {wishlist.length ? (
         <>
-          <div className=" container mx-auto font-bold text-3xl pt-44 pl-5 text-black">
+          <div className="container mx-auto font-bold text-3xl pt-44 pl-5 text-black">
             My Wishlist{" "}
             <span className="font-normal ">{wishlist.length} items</span>
           </div>
@@ -156,13 +156,13 @@ const Wishlist = () => {
             {wishlist.map((product) => (
               <div key={product.id} className="p-4 md:w-1/3 sm:mb-0 mb-6">
                 <div
-                  className=" border  hover:shadow-2xl
+                  className=" border rounded-3xl  hover:shadow-2xl
                  cursor-pointer h-full bg-white px-10  mt-20  "
                   onClick={() => openModal(product)}
                 >
-                  <div className=" float-right py-4  ">
+                  <div className=" float-right pt-6  ">
                     <button onClick={(e) => removeFromWishlist(product.id, e)}>
-                      <i className="fa-solid fa-xmark text-2xl "></i>
+                      <i className="fa-solid fa-xmark text-3xl "></i>
                     </button>
                   </div>
                   <div className="h-60 w-96 overflow-hidden">
@@ -172,10 +172,13 @@ const Wishlist = () => {
                       src={product.thumbnail}
                     />
                   </div>
-                  <h2 className="text-2xl pt-4  title-font text-gray-900 mt-5">
+                  <h2 className="text-2xl py-1 font-semibold text-gray-900 mt-5">
                     {product.title}
                   </h2>
 
+                  <p className="text-xl  title-font text-gray-900 mt-5">
+                    {product.brand}
+                  </p>
                   <div className="flex items-center pt-3">
                     <p className="text-2xl font-bold leading-relaxed">
                       ₹
