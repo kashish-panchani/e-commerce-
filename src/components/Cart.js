@@ -44,7 +44,7 @@ const Cart = () => {
   return (
     <div>
       {/* <Header/> */}
-      <Header2 />
+      <Header2 count={count} />
       <div class="container mx-auto p-44">
         {cartItems.length === 0 ? (
           <div className=" text-center  py-10 px-6  ">
@@ -67,7 +67,7 @@ const Cart = () => {
           </div>
         ) : (
           <>
-            <h1 class="mb-10 text-center  text-2xl font-bold">Shopping Cart</h1>
+            <h1 class="mb-10 text-center  text-3xl font-bold">Shopping Cart</h1>
             <div class="mx-auto max-w-5xl justify-center md:flex md:space-x-6 xl:px-0">
               <div class="rounded-lg md:w-2/3">
                 {cartItems.map((item) => (
