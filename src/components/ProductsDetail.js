@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import Header from "../Header";
+import Footer from "../Footer";
 
 const ProductsDetail = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  const [count, setCount] = useState(0);
   useEffect(() => {
     const storedSelectedProduct = localStorage.getItem("selectedProduct");
 
@@ -12,14 +14,15 @@ const ProductsDetail = () => {
   }, []);
 
   if (!selectedProduct) {
-    return null; // Return early if selectedProduct is falsy
+    return null; 
   }
 
   return (
+    <>
+    <Header count={count} />
     <div className="container m-4 flex justify-between">
       <div className="flex w-full">
         <div className="p-5 flex flex-wrap">
-          {/* Set the desired height and width for the image card */}
           {selectedProduct.images.map((image, index) => (
             <div key={index} className="w-[500px] h-[500px] border m-2">
               <img
@@ -57,12 +60,15 @@ const ProductsDetail = () => {
           <button className="rounded-none py-3 px-4 h-16 font-bold bg-[#ff3e6c] border border-[#ff3e6c] text-white flex-1 text-center mr-3 w-32">
             ADD TO BAG
           </button>
+       
           <button className="rounded-none py-3 px-4 h-16 font-bold bg-white border border-gray-700 text-black flex-1 text-center mr-3 w-full">
-            ADD TO BAG
+          <i class="fa-regular fa-heart"></i> WISHLIST
           </button>
         </div>
       </div>
     </div>
+    <Footer/> 
+    </>
   );
 };
 

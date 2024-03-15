@@ -10,7 +10,7 @@ const FilterProducts = ({ searchTerm, handleSearchChange }) => {
         onChange={handleSearchChange}
         className="pl-5 text-base py-2 pr-36 border border-r-0 rounded-l-md text-gray-700 focus:outline-none"
       />
-      <button className=" border-l-0 px-4  pb-4 border rounded-r-md text-gray-300 ">
+      <button className=" border-l-0 px-4 py-2 border rounded-r-md text-gray-300 ">
         <i className="fas fa-search text-base"></i>
       </button>
     </div>

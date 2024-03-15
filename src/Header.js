@@ -5,10 +5,11 @@ import FilterProducts from "./FilterProducts ";
 const Header = ({ count, searchTerm, handleSearchChange }) => {
   return (
     <header className="bg-white shadow-md">
-      <nav className="container mx-auto flex justify-between items-center ">
+      <nav className=" mx-auto h-20 flex justify-between items-center ">
         <Link to="/" className="flex items-center justify-center">
           <img src="../myntralogo.png" className="w-28 mt-2" alt="Logo" />
-          <div className="space-x-10  font-semibold">
+          </Link>
+          <div className="space-x-10 font-semibold">
             <Link to="/smartphones" className="nav-link">
               SMARTPHONES
             </Link>
@@ -21,8 +22,11 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
             <Link to="/jewellery" className="nav-link">
               JEWELLERY
             </Link>
+            <Link to="/lapto" className="nav-link">
+              LAPTOP
+            </Link>
           </div>
-        </Link>
+        
 
         <div className="flex items-center space-x-6">
           <div>

@@ -5,9 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header";
-import ProductModal from "../ProductModal";
 import Footer from "../Footer";
-import banner from "../Images/heroimage.jpg";
 import ProductsDetail from "./ProductsDetail";
 import { Link } from "react-router-dom";
 const Products = () => {
@@ -24,7 +22,7 @@ const Products = () => {
   const [wishlist, setWishlist] = useState([]);
   const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
-
+console.log("products::::",products);
   const settings = {
     dots: true,
     infinite: true,
@@ -168,33 +166,7 @@ const Products = () => {
         handleSearchChange={handleSearchChange}
       />
 
-      {/* All products */}\
-      
-      <div className=" flex justify-center relative ">
-        <div className="w-full  ">
-          <img src={banner} alt="" className=" w-full" />
-        </div>
-        <div className="container mx-auto absolute py-80 w-96  left-28">
-          <p className="bghead   text-5xl text-white ">
-            Every purchase will be mad e with pleasure.
-          </p>
-          <p className="bghead flex text-xl my-5 text-white  ">
-            We work with global brands and have created an application for you
-            to do your shopping.
-          </p>
-          <div className="container mx-auto py-3 flex justify-center items-center w-screen  bg-white mt-32">
-          <p className="mr-10 ">
-            You are on myntra.com.You can also shop on myntra india for millions
-            of products with fast local delivery.{" "}
-            <a href="https://www.myntra.com/online-fashion-store">
-              Click here to go to myntra.in
-            </a>
-          </p>
-          </div>
-        </div>
-      </div>
-      <Link to="/ProductsDetail">
-      <section className="text-gray-600  body-font ">
+      <section className="text-gray-600 py-15  body-font ">
         <div className="container mx-auto">
           {searchTerm && filteredProducts.length === 0 ? (
             <div className="text-center py-10 text-2xl font-semibold">
@@ -213,60 +185,62 @@ const Products = () => {
                     cursor-pointer h-full bg-white px-10 py-4"
                   >
                     {/* ------------------------- */}
-                    <div
-                      className="h-80 overflow-hidden "
-                      onMouseEnter={() => {
-                        setIshover(true);
-                        setIsHoverSetProduct(product.id);
-                      }}
-                      onMouseLeave={() => setIshover(false)}
-                    >
-                      {isHoverSetProduct === product.id && isHover ? (
-                        <Slider {...settings}>
-                          {product.images.map((image, index) => (
-                            <div
-                              key={index}
-                              className="h-fit w-32  object-cover"
-                            >
-                              <img
-                                src={image}
-                                alt="image"
-                                className="h-72 w-fit mx-auto"
-                                onClick={() => selectThumbnail(image)}
-                              />
-                            </div>
-                          ))}
-                        </Slider>
-                      ) : (
-                        <img
-                          alt={product.title}
-                          className="object-contain object-center h-full w-full"
-                          src={product.thumbnail}
-                        />
-                      )}
-                    </div>
-                    <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
-                      {product.title}
-                    </h2>
-                    <p className="text-lg text-ellipsis line-clamp-1 mt-2">
-                      {product.description}
-                    </p>
-                    <div className="flex pt-3">
-                      <p className="text-lg font-bold leading-relaxed">
-                        <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
-                        {product.price -
-                          parseInt(
-                            (product.price * product.discountPercentage) / 100
-                          )}
+                    <Link to="/ProductsDetail">
+                      <div
+                        className="h-80 overflow-hidden "
+                        onMouseEnter={() => {
+                          setIshover(true);
+                          setIsHoverSetProduct(product.id);
+                        }}
+                        onMouseLeave={() => setIshover(false)}
+                      >
+                        {isHoverSetProduct === product.id && isHover ? (
+                          <Slider {...settings}>
+                            {product.images.map((image, index) => (
+                              <div
+                                key={index}
+                                className="h-fit w-32  object-cover"
+                              >
+                                <img
+                                  src={image}
+                                  alt="image"
+                                  className="h-72 w-fit mx-auto"
+                                  onClick={() => selectThumbnail(image)}
+                                />
+                              </div>
+                            ))}
+                          </Slider>
+                        ) : (
+                          <img
+                            alt={product.title}
+                            className="object-contain object-center h-full w-full"
+                            src={product.thumbnail}
+                          />
+                        )}
+                      </div>
+                      <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
+                        {product.title}
+                      </h2>
+                      <p className="text-lg text-ellipsis line-clamp-1 mt-2">
+                        {product.description}
                       </p>
-                      <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
-                        <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
-                        {product.price}
-                      </p>
-                      <p className="text-base leading-relaxed font-bold text-red-500">
-                        ({product.discountPercentage}% off)
-                      </p>
-                    </div>
+                      <div className="flex pt-3">
+                        <p className="text-lg font-bold leading-relaxed">
+                          <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
+                          {product.price -
+                            parseInt(
+                              (product.price * product.discountPercentage) / 100
+                            )}
+                        </p>
+                        <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
+                          <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
+                          {product.price}
+                        </p>
+                        <p className="text-base leading-relaxed font-bold text-red-500">
+                          ({product.discountPercentage}% off)
+                        </p>
+                      </div>{" "}
+                    </Link>
                     <p className="text-lg leading-relaxed mt-2 py-1 w-20 border text-center font-semibold rounded-md">
                       {product.rating}
                       <i className="fa-solid fa-star pl-1 text-teal-500"></i>
@@ -310,38 +284,38 @@ const Products = () => {
             </div>
           )}
           {/* open model */}
-          {isModalOpen && selectedProduct && <ProductsDetail />}
-          {!searchTerm || filteredProducts.length > perPage ? (
-            <div className="flex justify-center py-12">
-              <button
-                onClick={handlePrevPage}
-                className={`mx-2 px-5 py-3 text-lg border rounded-full ${
-                  currentPage === 1
-                    ? "bg-gray-300 cursor-not-allowed text-gray-500"
-                    : "bg-blue-500 text-white"
-                }`}
-                disabled={currentPage === 1}
-              >
-                <i class="fa-solid fa-angle-left "></i>
-              </button>
-              <span className="pt-2 text-2xl ">page {currentPage} </span>
-              <button
-                onClick={handleNextPage}
-                className={`mx-2 px-5 text-lg py-3 border rounded-full
+          {/* {isModalOpen && selectedProduct && <ProductsDetail />} */}
+        </div>
+      </section>
+
+      {!searchTerm || filteredProducts.length > perPage ? (
+        <div className="flex justify-center py-12">
+          <button
+            onClick={handlePrevPage}
+            className={`mx-2 px-5 py-3 text-lg border rounded-full ${
+              currentPage === 1
+                ? "bg-gray-300 cursor-not-allowed text-gray-500"
+                : "bg-blue-500 text-white"
+            }`}
+            disabled={currentPage === 1}
+          >
+            <i class="fa-solid fa-angle-left "></i>
+          </button>
+          <span className="pt-2 text-2xl ">page {currentPage} </span>
+          <button
+            onClick={handleNextPage}
+            className={`mx-2 px-5 text-lg py-3 border rounded-full
                       ${
                         currentPage === totalPages
                           ? "bg-gray-300 cursor-not-allowed text-gray-500"
                           : "bg-blue-500 text-white"
                       }`}
-                disabled={currentPage === totalPages}
-              >
-                <i class="fa-solid fa-angle-right"></i>
-              </button>
-            </div>
-          ) : null}
+            disabled={currentPage === totalPages}
+          >
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
         </div>
-      </section>
-    </Link>
+      ) : null}
       <Footer />
     </div>
   );
