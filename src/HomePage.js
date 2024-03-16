@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
-import banner from "./Images/heroimage.jpg";
-import firstimage from "./Images/homefirst.webp";
+// import banner from "./Images/heroimage.jpg";
+
 import firstpart from "./Images/firstpart.webp";
 import secondpart from "./Images/secondpar.webp";
 import home1 from "./Images/home1.webp";
@@ -9,10 +9,17 @@ import home2 from "./Images/home2.webp";
 import home3 from "./Images/home3.webp";
 import home4 from "./Images/home5.webp";
 import home6 from "./Images/home6.webp";
-import bag from "./Images/phone.png";
+import footerimg from "./Images/footeimage.webp";
+import Footer from "./Footer";
+import { toast } from "react-toastify";
+
 const HomePage = () => {
   const [count, setCount] = useState(0);
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [addedToCart, setAddedToCart] = useState(false);
   console.log("products::", products);
   useEffect(() => {
     const fetchData = async () => {
@@ -22,6 +29,37 @@ const HomePage = () => {
     };
     fetchData();
   }, []);
+  const addToCart = () => {
+    const isAlreadyInCart = cartItems?.some(
+      (item) => item.id === selectedProduct.id
+    );
+    const maxQuantity = 10;
+    const productWithQuantity = { ...selectedProduct, quantity: 1 };
+    if (cartItems.length < maxQuantity) {
+      setCartItems([...cartItems, productWithQuantity]);
+      setCount(count + 1);
+      setAddedToCart(true);
+      toast.success("Item added to cart successfully");
+    }
+    const updatedWishlist = wishlist.filter(
+      (item) => item.id !== selectedProduct.id
+    );
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+   
+  };
+  useEffect(() => {
+    const savedCartItems = localStorage.getItem("cartItems");
+    if (savedCartItems) {
+      const parsedCartItems = JSON.parse(savedCartItems);
+      setCartItems(parsedCartItems);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    setCount(cartItems.length);
+  }, [cartItems]);
+
   return (
     <>
       <Header
@@ -30,64 +68,39 @@ const HomePage = () => {
         // searchTerm={searchTerm}
         // handleSearchChange={handleSearchChange}
       />
-      
-   {/* <div className=" flex justify-center relative ">
-<div className="w-full  ">
-  <img src={banner} alt="" className=" w-full" />
-</div>
-<div className="container mx-auto absolute py-80 w-96  left-28">
-  <p className="bghead   text-5xl text-white ">
-    Every purchase will be mad e with pleasure.
-  </p>
-  <p className="bghead flex text-xl my-5 text-white  ">
-    We work with global brands and have created an application for you
-    to do your shopping.
-  </p>
-  <div className="container mx-auto py-3 flex justify-center items-center w-screen  bg-white mt-32">
-    <p className="mr-10 ">
-      You are on myntra.com.You can also shop on myntra india for
-      millions of products with fast local delivery.{" "}
-      <a href="https://www.myntra.com/online-fashion-store">
-        Click here to go to myntra.in
-      </a>
-    </p>
-  </div>
-</div>
-</div>  */}
-<div>
-       {/* All products */}
-       <div className="">
-         {/* <div className=" flex justify-center items-center">
-           <img src={firstimage} alt="" className="w-full h-full" />
-         </div> */}
-         <div className="flex justify-center items-center ">
-           <div>
-             <img src={firstpart} alt="" className="" />
-           </div>
-           <div>
-             <img src={secondpart} alt="" className="w-full" />
-           </div>
-         </div>
-         <div>
-           <img src={home1} alt="" className="w-full" />
-         </div>
-         <div>
-           <img src={home2} alt="" className="w-full" />
-         </div>
 
-         <div className="flex">
-           <div>
-             <img src={home3} alt="" className="" />
-           </div>
-           <div>
-             <img src={home4} alt="" className="" />
-           </div>
-         </div>
-         <div>
-           <img src={home6} alt="" />
-         </div>
-       </div>
-     </div>
+      <div>
+        {/* All products */}
+
+        <div className="flex pt-10 justify-center items-center ">
+          <div>
+            <img src={firstpart} alt="" className="" />
+          </div>
+          <div>
+            <img src={secondpart} alt="" className="w-full" />
+          </div>
+        </div>
+        <div>
+          <img src={home1} alt="" className="w-full" />
+        </div>
+        <div>
+          <img src={home2} alt="" className="w-full" />
+        </div>
+
+        <div className="flex">
+          <div>
+            <img src={home3} alt="" className="" />
+          </div>
+          <div>
+            <img src={home4} alt="" className="" />
+          </div>
+        </div>
+        <div>
+          <img src={home6} alt="" />
+        </div>
+      </div>
+
+      {/* card */}
       <div className="flex justify-center items-center py-20 text-4xl font-semibold">
         <h1>Deal-icious Offers</h1>
       </div>
@@ -101,7 +114,7 @@ const HomePage = () => {
         <div class="flex pr-2 h-80 object-cover overflow-hidden">
           <img
             src="https://assets.tatacliq.com/medias/sys_master/images/49733324931102.jpg"
-            alt="bag"
+            alt="women-bag"
           />
         </div>
         <div class="flex pr-2 h-80 object-cover overflow-hidden">
@@ -122,28 +135,42 @@ const HomePage = () => {
             alt="home decor"
           />
         </div>
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49792075104286.jpg"
-            alt="serum"
-          />
-        </div>
-       
-        {/* <div class="mt-4 pb-5">
-    <a href="#">
-      <h5 class="text-center tracking-tight text-gray-500">Piped Linen Blend Blazer</h5>
-    </a>
-    <div class="mb-5 flex justify-center">
-      <p>
-        <span class="text-sm font-bold text-gray-900">$179</span>
-        <span class="text-sm text-gray-400 line-through">$499</span>
-      </p>
-    </div>
-  </div> */}
       </div>
-       <div className="flex justify-center items-center py-20 text-4xl font-semibold">
+      <div className="py-20 text-4xl text-center font-semibold">
         <h1>Blockbuster Offers</h1>
       </div>
+      <div className=" mx-auto container">
+        <div className="gap-5 flex justify-center items-center flex-wrap   bg-white">
+          <div class="flex  h-3/4  object-cover ">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49739180343326.jpg"
+              alt="women-bag"
+            />
+          </div>
+          <div class="flex  h-3/4  object-cover">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49739180408862.jpg"
+              alt="women-watch"
+            />
+          </div>
+          <div class="flex  h-3/4  object-cover">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49739180605470.jpg"
+              alt="sunglass"
+            />
+          </div>
+          <div class="flex  h-3/4  object-cover">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49739180736542.jpg"
+              alt="shoes"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="my-3">
+        <img src={footerimg} alt="" className="w-full" />
+      </div>
+      <Footer />
     </>
   );
 };
@@ -207,7 +234,6 @@ export default HomePage;
 
 // ))}
 // </div>
-
 
 // =============
 // <div>

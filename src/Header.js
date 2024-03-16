@@ -5,28 +5,30 @@ import FilterProducts from "./FilterProducts ";
 const Header = ({ count, searchTerm, handleSearchChange }) => {
   return (
     <header className="bg-white shadow-md">
-      <nav className=" mx-auto h-20 flex justify-between items-center ">
+      <nav className="mx-14 h-20 flex justify-between items-center ">
         <Link to="/" className="flex items-center justify-center">
           <img src="../myntralogo.png" className="w-28 mt-2" alt="Logo" />
+        </Link>
+        <div className="space-x-10 mr-32 font-semibold">
+          <Link to="/all" className="nav-link">
+            ALL
           </Link>
-          <div className="space-x-10 font-semibold">
-            <Link to="/smartphones" className="nav-link">
-              SMARTPHONES
-            </Link>
-            <Link to="/bags" className="nav-link">
-              BAG
-            </Link>
-            <Link to="/sunglasses" className="nav-link">
-              SUNGLASSES
-            </Link>
-            <Link to="/jewellery" className="nav-link">
-              JEWELLERY
-            </Link>
-            <Link to="/lapto" className="nav-link">
-              LAPTOP
-            </Link>
-          </div>
-        
+          <Link to="/smartphones" className="nav-link">
+            SMARTPHONES
+          </Link>
+          <Link to="/bags" className="nav-link">
+            BAG
+          </Link>
+          <Link to="/sunglasses" className="nav-link">
+            SUNGLASSES
+          </Link>
+          <Link to="/jewellery" className="nav-link">
+            JEWELLERY
+          </Link>
+          <Link to="/lapto" className="nav-link">
+            LAPTOP
+          </Link>
+        </div>
 
         <div className="flex items-center space-x-6">
           <div>

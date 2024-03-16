@@ -43,7 +43,6 @@ console.log("products::::",products);
     };
     fetchData();
   }, []);
-
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
@@ -104,29 +103,29 @@ console.log("products::::",products);
       thumbnail: image,
     }));
   };
-  const closeModal = () => {
-    setSelectedProduct(null);
-    setIsModalOpen(false);
-    setAddedToCart(false);
-  };
-  const addToCart = () => {
-    const isAlreadyInCart = cartItems?.some(
-      (item) => item.id === selectedProduct.id
-    );
-    if (isAlreadyInCart) {
-      setIsCartModalOpen(true);
-      closeModal();
-      return;
-    }
-    const maxQuantity = 10;
-    const productWithQuantity = { ...selectedProduct, quantity: 1 };
-    if (cartItems.length < maxQuantity) {
-      setCartItems([...cartItems, productWithQuantity]);
-      setCount(count + 1);
-      setAddedToCart(true);
-      toast.success("Item added to cart successfully");
-    }
-  };
+  // const closeModal = () => {
+  //   setSelectedProduct(null);
+  //   setIsModalOpen(false);
+  //   setAddedToCart(false);
+  // };
+  // const addToCart = () => {
+  //   const isAlreadyInCart = cartItems?.some(
+  //     (item) => item.id === selectedProduct.id
+  //   );
+  //   if (isAlreadyInCart) {
+  //     setIsCartModalOpen(true);
+  //     closeModal();
+  //     return;
+  //   }
+  //   const maxQuantity = 10;
+  //   const productWithQuantity = { ...selectedProduct, quantity: 1 };
+  //   if (cartItems.length < maxQuantity) {
+  //     setCartItems([...cartItems, productWithQuantity]);
+  //     setCount(count + 1);
+  //     setAddedToCart(true);
+  //     // toast.success("Item added to cart successfully");
+  //   }
+  // };
 
   const toggleCartModal = () => {
     setIsCartModalOpen(true);
@@ -134,7 +133,7 @@ console.log("products::::",products);
 
   const whishlistbtn = (productId, e) => {
     e.stopPropagation();
-    const isInWishlist = wishlist.some((item) => item.id === productId);
+    const isInWishlist = wishlist?.some((item) => item.id === productId);
     if (isInWishlist) {
       const updatedWishlist = wishlist.filter((item) => item.id !== productId);
       setWishlist(updatedWishlist);
@@ -260,19 +259,19 @@ console.log("products::::",products);
                       {/* ----------BOX WISHLIST----- */}
                       <div
                         className={`border rounded-full text-center  px-3 mt-4 py-2   ${
-                          wishlist.some((item) => item.id === product.id)
+                          wishlist?.some((item) => item.id === product.id)
                             ? "bg-gray-300 "
                             : ""
                         }`}
                         onClick={(e) => whishlistbtn(product.id, e)}
                       >
-                        {wishlist.some((item) => item.id === product.id) ? (
+                        {wishlist?.some((item) => item.id === product.id) ? (
                           <i className="fas fa-heart text-rose-500 text-xl"></i>
                         ) : (
                           <i className="fa-regular fa-heart text-xl"></i>
                         )}
                         <label htmlFor="" className="font-semibold text-xl">
-                          {wishlist.some((item) => item.id === product.id)
+                          {wishlist?.some((item) => item.id === product.id)
                             ? ""
                             : ""}
                         </label>
@@ -284,7 +283,7 @@ console.log("products::::",products);
             </div>
           )}
           {/* open model */}
-          {/* {isModalOpen && selectedProduct && <ProductsDetail />} */}
+          {isModalOpen && selectedProduct && <ProductsDetail />}
         </div>
       </section>
 

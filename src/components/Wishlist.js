@@ -2,10 +2,11 @@ import React from "react";
 import { toast } from "react-toastify";
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import ProductModal from "../ProductModal";
-import Header2 from "../Header2";
+// import ProductModal from "../ProductModal";
+// import Header2 from "../Header2";
 import Footer from "../Footer";
 import Header from "../Header";
+import ProductsDetail from "./ProductsDetail";
 const Wishlist = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -54,6 +55,7 @@ const Wishlist = () => {
     // gotocart
     const isInCart = cartItems?.some((item) => item.id === product.id);
     setAddedToCart(isInCart);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
   const closeModal = () => {
     setSelectedProduct(null);
@@ -136,7 +138,7 @@ const Wishlist = () => {
     <div>
  <Header count={count}/>
       {isModalOpen && selectedProduct && (
-        <ProductModal
+        <ProductsDetail
           selectedProduct={selectedProduct}
           closeModal={closeModal}
           selectThumbnail={selectThumbnail}
@@ -222,7 +224,7 @@ const Wishlist = () => {
             </div>
             <div className="flex justify-center items-center ">
               <button className=" text-blue-600 text-xl font-bold border rounded-lg border-blue-800 my-10 py-4 px-14 cursor-pointer">
-                <Link to="/">CONTINUE SHOPPING</Link>
+                <Link to="/ALL">CONTINUE SHOPPING</Link>
               </button>
             </div>
           </div>
