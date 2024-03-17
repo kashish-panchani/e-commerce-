@@ -62,6 +62,7 @@ console.log("products::::",products);
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
+    console.log("storedWishlist",storedWishlist);
   }, []);
 
   const totalPages = Math.ceil(products.length / perPage);
@@ -96,7 +97,7 @@ console.log("products::::",products);
     setAddedToCart(isInCart);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
-
+  
   const selectThumbnail = (image) => {
     setSelectedProduct((prevProduct) => ({
       ...prevProduct,
