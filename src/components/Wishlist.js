@@ -56,7 +56,7 @@ const Wishlist = () => {
     const isInCart = cartItems?.some((item) => item.id === product.id);
     setAddedToCart(isInCart);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
-    console.log("product",product);
+    console.log("product", product);
   });
   const closeModal = () => {
     setSelectedProduct(null);
@@ -82,8 +82,8 @@ const Wishlist = () => {
     }
   };
 
-  const moveToCart = (product,e) => {
-    e.stopPropagation()
+  const moveToCart = (product, e) => {
+    e.stopPropagation();
     const isInCart = cartItems.some((item) => item.id === product.id);
     if (isInCart) {
       const updatedCartItems = cartItems.map((item) =>
@@ -137,7 +137,7 @@ const Wishlist = () => {
   console.log("wishlist.length", wishlist.length);
   return (
     <div>
- <Header count={count}/>
+      <Header count={count} />
       {isModalOpen && selectedProduct && (
         <ProductsDetail
           selectedProduct={selectedProduct}
@@ -151,64 +151,141 @@ const Wishlist = () => {
       )}
       {wishlist.length ? (
         <>
-          <div className="container mx-auto font-bold text-3xl pt-44 pl-5 text-black">
+          <div className="container mt-16 ml-15 mx-auto font-bold text-base  text-black">
             My Wishlist{" "}
             <span className="font-normal ">{wishlist.length} items</span>
           </div>
-
-          <div className="container mx-auto pb-36  flex flex-wrap ">
+          <div class="relative m-16 grid grid-cols-4  max-w-full overflow-hidden rounded-lg ">
             {wishlist.map((product) => (
-              <div key={product.id} className="p-4 md:w-1/3 sm:mb-0 mb-6">
-                <div
-                  className=" border rounded-3xl  hover:shadow-2xl
-                 cursor-pointer h-full bg-white px-10  mt-20  "
-                  onClick={() => openModal(product)}
-                >
-                  <div className=" float-right pt-6  ">
-                    <button onClick={(e) => removeFromWishlist(product.id, e)}>
-                      <i className="fa-solid fa-xmark text-3xl "></i>
+              <>
+                <div class="relative m-2 flex flex-wrap  max-w-xs overflow-hidden rounded-lg border hover:shadow-xl border-gray-100 bg-white shadow-md">
+                  <div className="w-full">
+                    <button
+                      className="  float-right"
+                      onClick={(e) => removeFromWishlist(product.id, e)}
+                    >
+                      <i class="fa-solid fa-xmark mt-5 mr-5"></i>
                     </button>
                   </div>
-                  <div className="h-60 w-96 overflow-hidden">
+                  <a
+                    className="relative  mx-3 mt-3 flex h-52 overflow-hidden "
+                    href="#"
+                  >
+                    <img
+                      style={{ width: "300px" }}
+                      className="object-contain rounded-xl"
+                      src={product.thumbnail}
+                      alt="product image"
+                    />
+                    {/* <div className="flex justify-between  items-center w-full absolute top-0 left-0 p-2">
+                      <span className="rounded-full bg-black px-2 text-center text-sm font-medium text-white">
+                        {product.discountPercentage}% OFF
+                      </span>
+                    </div> */}
+                  </a>
+                  <div class="mt-4 px-5 w-full pb-5">
+                    <a href="#">
+                      <h5 class="text-lg tracking-tight line-clamp-1 text-slate-900">
+                        {product.title}
+                      </h5>
+                    </a>
+                    <div class="mt-2 mb-5  flex items-center justify-between">
+                      <p>
+                        <span className="text-base font-bold leading-relaxed">
+                          ₹
+                          {product.price -
+                            parseInt(
+                              (product.price * product.discountPercentage) / 100
+                            )}
+                        </span>
+
+                        <span class="font-semibold text-xs mx-1 line-through text-slate-900">
+                          ₹{product.price}
+                        </span>
+                        <span className="text-xs leading-relaxed font-bold text-red-500">
+                          ({product.discountPercentage}% off)
+                        </span>
+                      </p>
+                    </div>
+                    <a
+                      href="#"
+                      class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                      onClick={(e) => moveToCart(product, e)}
+                    >
+                      {/* <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="mr-2 h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg> */}
+                      Move to cart
+                    </a>
+                  </div>
+                </div>
+              </>
+            ))}
+          </div>
+          {/* <div className="container mx-auto flex flex-wrap ">
+            {wishlist.map((product) => (
+              <div key={product.id} className="p-4">
+                <div
+                  className=" border  hover:shadow-xl w-fit
+                 cursor-pointer  bg-white   mt-20  "
+                  onClick={() => openModal(product)}
+                >
+                  <div className=" absolute border bg-gray-100 rounded-full ">
+                    <button onClick={(e) => removeFromWishlist(product.id, e)}>
+                      <i className="fa-solid fa-xmark px-1 pl text-xs"></i>
+                    </button>
+                  </div>
+                  <div className="h-fit  w-60 overflow-hidden">
                     <img
                       alt={product.title}
-                      className="object-contain  object-center h-full w-full"
+                      className="h-full  w-full object-cover"
                       src={product.thumbnail}
                     />
                   </div>
-                  <h2 className="text-2xl py-1 font-semibold text-gray-900 mt-5">
+                  <h2 className="text-xl py-1 font-semibold text-gray-900 mt-5">
                     {product.title}
                   </h2>
 
-                  <p className="text-xl  title-font text-gray-900 mt-5">
+                  <p className="text-lg  title-font text-gray-900">
                     {product.brand}
                   </p>
-                  <div className="flex items-center pt-3">
-                    <p className="text-2xl font-bold leading-relaxed">
+                  <div className="flex items-center ">
+                    <p className="text-sm font-bold leading-relaxed">
                       ₹
                       {product.price -
                         parseInt(
                           (product.price * product.discountPercentage) / 100
                         )}
                     </p>
-                    <p className="text-base font-semibold px-3 leading-relaxed  text-gray-500 line-through">
+                    <p className="text-xs font-semibold px-3 leading-relaxed  text-gray-500 line-through">
                       <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
                       {product.price}
                     </p>
                   </div>
-                    <p className="text-lg leading-relaxed mt-2 font-bold text-red-500">
-                      ({product.discountPercentage}% off)
-                    </p>
+                  <p className="text-xs leading-relaxed font-bold text-red-500">
+                    ({product.discountPercentage}% off)
+                  </p>
                   <div
-                    className="border mt-20  py-5 text-xl text-white  font-semibold flex items-center justify-center bg-slate-600"
-                    onClick={(e) => moveToCart(product,e)}
+                    className="border mt-5  py-5 text-sm text-white  font-semibold flex items-center justify-center bg-slate-600"
+                    onClick={(e) => moveToCart(product, e)}
                   >
                     <h1>MOVE TO CART</h1>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </>
       ) : (
         <>
@@ -231,170 +308,8 @@ const Wishlist = () => {
           </div>
         </>
       )}
-<Footer />
     </div>
   );
 };
 
-
 export default Wishlist;
- // <div className=" bg-gray-100 overflow-hidden ">
-    //   <Header
-    //     count={count}
-    //     toggleCartModal={toggleCartModal}
-    //     searchTerm={searchTerm}
-    //     handleSearchChange={handleSearchChange}
-    //   />
-
-    //   <section className="text-gray-600 py-15  body-font ">
-    //     <div className="container mx-auto">
-    //       {searchTerm && filteredProducts.length === 0 ? (
-    //         <div className="text-center py-10 text-2xl font-semibold">
-    //           No products found
-    //         </div>
-    //       ) : (
-    //         <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 ">
-    //           {filteredProducts.slice(startIndex, endIndex).map((product) => (
-    //             <div
-    //               key={product.id}
-    //               className="p-6 md:w-1/3 sm:mb-0 mb-6"
-    //               onClick={() => openModal(product)}
-    //             >
-    //               <div
-    //                 className="rounded-lg hover:shadow-2xl
-    //                 cursor-pointer h-full bg-white px-10 py-4"
-    //               >
-    //                 {/* ------------------------- */}
-    //                 <Link to="/ProductsDetail">
-    //                   <div
-    //                     className="h-80 overflow-hidden "
-    //                     onMouseEnter={() => {
-    //                       setIshover(true);
-    //                       setIsHoverSetProduct(product.id);
-    //                     }}
-    //                     onMouseLeave={() => setIshover(false)}
-    //                   >
-    //                     {isHoverSetProduct === product.id && isHover ? (
-    //                       <Slider {...settings}>
-    //                         {product.images.map((image, index) => (
-    //                           <div
-    //                             key={index}
-    //                             className="h-fit w-32  object-cover"
-    //                           >
-    //                             <img
-    //                               src={image}
-    //                               alt="image"
-    //                               className="h-72 w-fit mx-auto"
-    //                               onClick={() => selectThumbnail(image)}
-    //                             />
-    //                           </div>
-    //                         ))}
-    //                       </Slider>
-    //                     ) : (
-    //                       <img
-    //                         alt={product.title}
-    //                         className="object-contain object-center h-full w-full"
-    //                         src={product.thumbnail}
-    //                       />
-    //                     )}
-    //                   </div>
-    //                   <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
-    //                     {product.title}
-    //                   </h2>
-    //                   <p className="text-lg text-ellipsis line-clamp-1 mt-2">
-    //                     {product.description}
-    //                   </p>
-    //                   <div className="flex pt-3">
-    //                     <p className="text-lg font-bold leading-relaxed">
-    //                       <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
-    //                       {product.price -
-    //                         parseInt(
-    //                           (product.price * product.discountPercentage) / 100
-    //                         )}
-    //                     </p>
-    //                     <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
-    //                       <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
-    //                       {product.price}
-    //                     </p>
-    //                     <p className="text-base leading-relaxed font-bold text-red-500">
-    //                       ({product.discountPercentage}% off)
-    //                     </p>
-    //                   </div>{" "}
-    //                 </Link>
-    //                 <p className="text-lg leading-relaxed mt-2 py-1 w-20 border text-center font-semibold rounded-md">
-    //                   {product.rating}
-    //                   <i className="fa-solid fa-star pl-1 text-teal-500"></i>
-    //                 </p>
-    //                 <div className="flex justify-between items-center">
-    //                   <div>
-    //                     <p className="text-lg leading-relaxed ">
-    //                       <label
-    //                         htmlFor=""
-    //                         className="text-green-500 font-semibold"
-    //                       >
-    //                         In stock :{" "}
-    //                       </label>
-    //                       {product.stock}
-    //                     </p>
-    //                   </div>
-    //                   {/* ----------BOX WISHLIST----- */}
-    //                   <div
-    //                     className={`border rounded-full text-center  px-3 mt-4 py-2   ${
-    //                       wishlist?.some((item) => item.id === product.id)
-    //                         ? "bg-gray-300 "
-    //                         : ""
-    //                     }`}
-    //                     onClick={(e) => whishlistbtn(product.id, e)}
-    //                   >
-    //                     {wishlist?.some((item) => item.id === product.id) ? (
-    //                       <i className="fas fa-heart text-rose-500 text-xl"></i>
-    //                     ) : (
-    //                       <i className="fa-regular fa-heart text-xl"></i>
-    //                     )}
-    //                     <label htmlFor="" className="font-semibold text-xl">
-    //                       {wishlist?.some((item) => item.id === product.id)
-    //                         ? ""
-    //                         : ""}
-    //                     </label>
-    //                   </div>
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           ))}
-    //         </div>
-    //       )}
-    //       {/* open model */}
-    //       {isModalOpen && selectedProduct && <ProductsDetail />}
-    //     </div>
-    //   </section>
-
-    //   {!searchTerm || filteredProducts.length > perPage ? (
-    //     <div className="flex justify-center py-12">
-    //       <button
-    //         onClick={handlePrevPage}
-    //         className={`mx-2 px-5 py-3 text-lg border rounded-full ${
-    //           currentPage === 1
-    //             ? "bg-gray-300 cursor-not-allowed text-gray-500"
-    //             : "bg-blue-500 text-white"
-    //         }`}
-    //         disabled={currentPage === 1}
-    //       >
-    //         <i class="fa-solid fa-angle-left "></i>
-    //       </button>
-    //       <span className="pt-2 text-2xl ">page {currentPage} </span>
-    //       <button
-    //         onClick={handleNextPage}
-    //         className={`mx-2 px-5 text-lg py-3 border rounded-full
-    //                   ${
-    //                     currentPage === totalPages
-    //                       ? "bg-gray-300 cursor-not-allowed text-gray-500"
-    //                       : "bg-blue-500 text-white"
-    //                   }`}
-    //         disabled={currentPage === totalPages}
-    //       >
-    //         <i class="fa-solid fa-angle-right"></i>
-    //       </button>
-    //     </div>
-    //   ) : null}
-    //   <Footer />
-    // </div>

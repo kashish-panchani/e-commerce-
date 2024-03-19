@@ -12,6 +12,7 @@ import home6 from "./Images/home6.webp";
 import footerimg from "./Images/footeimage.webp";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [count, setCount] = useState(0);
@@ -46,7 +47,6 @@ const HomePage = () => {
     );
     setWishlist(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-   
   };
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
@@ -71,15 +71,16 @@ const HomePage = () => {
 
       <div>
         {/* All products */}
-
-        <div className="flex pt-10 justify-center items-center ">
-          <div>
-            <img src={firstpart} alt="" className="" />
+        <Link to="/all">
+          <div className="flex pt-10 justify-center items-center ">
+            <div>
+              <img src={firstpart} alt="" className="" />
+            </div>
+            <div>
+              <img src={secondpart} alt="" className="w-full" />
+            </div>
           </div>
-          <div>
-            <img src={secondpart} alt="" className="w-full" />
-          </div>
-        </div>
+        </Link>
         <div>
           <img src={home1} alt="" className="w-full" />
         </div>
@@ -105,72 +106,89 @@ const HomePage = () => {
         <h1>Deal-icious Offers</h1>
       </div>
       <div class="container  gap-3 mx-auto max-w flex flex-wrap w-full  overflow-hidden bg-white">
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49792073334814.jpg"
-            alt="shoes"
-          />
-        </div>
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49733324931102.jpg"
-            alt="women-bag"
-          />
-        </div>
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49739179622430.jpg"
-            alt="men"
-          />
-        </div>
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49792074317854.jpg"
-            alt="watch"
-          />
-        </div>
-        <div class="flex pr-2 h-80 object-cover overflow-hidden">
-          <img
-            src="https://assets.tatacliq.com/medias/sys_master/images/49792074711070.jpg"
-            alt="home decor"
-          />
-        </div>
+        <Link to="/mens-shoes">
+          <div class="flex pr-2 h-80 object-cover overflow-hidden">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49792073334814.jpg"
+              alt="shoes"
+            />
+          </div>
+        </Link>
+        <Link to="/bags">
+          <div class="flex pr-2 h-80 object-cover overflow-hidden">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49733324931102.jpg"
+              alt="women-bag"
+            />
+          </div>
+        </Link>
+        <Link to="/mens-shirts">
+          <div class="flex pr-2 h-80 object-cover overflow-hidden">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49739179622430.jpg"
+              alt="men"
+            />
+          </div>
+        </Link>
+        <Link to="/mens-watches">
+          <div class="flex pr-2 h-80 object-cover overflow-hidden">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49792074317854.jpg"
+              alt="watch"
+            />
+          </div>
+        </Link>
+        <Link to="/home-decoration">
+          <div class="flex pr-2 h-80 object-cover overflow-hidden">
+            <img
+              src="https://assets.tatacliq.com/medias/sys_master/images/49792074711070.jpg"
+              alt="home decor"
+            />
+          </div>
+        </Link>
       </div>
       <div className="py-20 text-4xl text-center font-semibold">
         <h1>Blockbuster Offers</h1>
       </div>
       <div className=" mx-auto container">
         <div className="gap-5 flex justify-center items-center flex-wrap   bg-white">
-          <div class="flex  h-3/4  object-cover ">
-            <img
-              src="https://assets.tatacliq.com/medias/sys_master/images/49739180343326.jpg"
-              alt="women-bag"
-            />
-          </div>
-          <div class="flex  h-3/4  object-cover">
-            <img
-              src="https://assets.tatacliq.com/medias/sys_master/images/49739180408862.jpg"
-              alt="women-watch"
-            />
-          </div>
-          <div class="flex  h-3/4  object-cover">
-            <img
-              src="https://assets.tatacliq.com/medias/sys_master/images/49739180605470.jpg"
-              alt="sunglass"
-            />
-          </div>
-          <div class="flex  h-3/4  object-cover">
-            <img
-              src="https://assets.tatacliq.com/medias/sys_master/images/49739180736542.jpg"
-              alt="shoes"
-            />
-          </div>
+          <Link to="/bags">
+            <div class="flex  h-3/4  object-cover ">
+              <img
+                src="https://assets.tatacliq.com/medias/sys_master/images/49739180343326.jpg"
+                alt="women-bag"
+              />
+            </div>
+          </Link>
+          <Link to="/womens-watches">
+            <div class="flex  h-3/4  object-cover">
+              <img
+                src="https://assets.tatacliq.com/medias/sys_master/images/49739180408862.jpg"
+                alt="women-watch"
+              />
+            </div>
+          </Link>
+          <Link to="/sunglasses">
+            <div class="flex  h-3/4  object-cover">
+              <img
+                src="https://assets.tatacliq.com/medias/sys_master/images/49739180605470.jpg"
+                alt="sunglass"
+              />
+            </div>
+          </Link>
+          <Link to="/women's shoes">
+            <div class="flex  h-3/4  object-cover">
+              <img
+                src="https://assets.tatacliq.com/medias/sys_master/images/49739180736542.jpg"
+                alt="shoes"
+              />
+            </div>
+          </Link>
         </div>
       </div>
       <div className="my-3">
         <img src={footerimg} alt="" className="w-full" />
       </div>
-      <Footer />
     </>
   );
 };

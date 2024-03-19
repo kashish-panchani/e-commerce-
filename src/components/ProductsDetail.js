@@ -89,7 +89,19 @@ const ProductsDetail = () => {
             <p className="text-lg leading-relaxed font-bold px-2 text-red-400">
               ({selectedProduct.discountPercentage}% off)
             </p>
+            
           </div>
+          <div>
+                        <p className="text-lg leading-relaxed ">
+                          <label
+                            htmlFor=""
+                            className="text-teal-600 font-semibold"
+                          >
+                            In stock :{" "}
+                          </label>
+                          {selectedProduct.stock}
+                        </p>
+                      </div>
           <div className="text-teal-600 font-bold text-xl">inclusive of all taxes</div>
 
           <div className="flex flex-row gap-1">

@@ -8,6 +8,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import ProductsDetail from "./ProductsDetail";
 import { Link } from "react-router-dom";
+import Smartphones from "./Smartphones";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +23,7 @@ const Products = () => {
   const [wishlist, setWishlist] = useState([]);
   const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
-console.log("products::::",products);
+  console.log("products::::", products);
   const settings = {
     dots: true,
     infinite: true,
@@ -62,7 +63,7 @@ console.log("products::::",products);
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
-    console.log("storedWishlist",storedWishlist);
+    console.log("storedWishlist", storedWishlist);
   }, []);
 
   const totalPages = Math.ceil(products.length / perPage);
@@ -97,7 +98,7 @@ console.log("products::::",products);
     setAddedToCart(isInCart);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
-  
+
   const selectThumbnail = (image) => {
     setSelectedProduct((prevProduct) => ({
       ...prevProduct,
@@ -158,7 +159,7 @@ console.log("products::::",products);
   const endIndex = currentPage * perPage;
 
   return (
-    <div className=" bg-gray-100 overflow-hidden ">
+    <div className="bg-gray-100 min-h-screen">
       <Header
         count={count}
         toggleCartModal={toggleCartModal}
@@ -166,125 +167,101 @@ console.log("products::::",products);
         handleSearchChange={handleSearchChange}
       />
 
-      <section className="text-gray-600 py-15  body-font ">
-        <div className="container mx-auto">
+      <section className="py-10 px-5 sm:px-10">
+        <div className="container mx-auto py-10">
           {searchTerm && filteredProducts.length === 0 ? (
             <div className="text-center py-10 text-2xl font-semibold">
               No products found
             </div>
           ) : (
-            <div className="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 ">
+            <div className="flex flex-wrap -m-4">
               {filteredProducts.slice(startIndex, endIndex).map((product) => (
                 <div
                   key={product.id}
-                  className="p-6 md:w-1/3 sm:mb-0 mb-6"
+                  className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 "
                   onClick={() => openModal(product)}
                 >
-                  <div
-                    className="rounded-lg hover:shadow-2xl
-                    cursor-pointer h-full bg-white px-10 py-4"
-                  >
-                    {/* ------------------------- */}
-                    <Link to="/ProductsDetail">
-                      <div
-                        className="h-80 overflow-hidden "
-                        onMouseEnter={() => {
-                          setIshover(true);
-                          setIsHoverSetProduct(product.id);
-                        }}
-                        onMouseLeave={() => setIshover(false)}
-                      >
-                        {isHoverSetProduct === product.id && isHover ? (
-                          <Slider {...settings}>
-                            {product.images.map((image, index) => (
-                              <div
-                                key={index}
-                                className="h-fit w-32  object-cover"
-                              >
-                                <img
-                                  src={image}
-                                  alt="image"
-                                  className="h-72 w-fit mx-auto"
-                                  onClick={() => selectThumbnail(image)}
-                                />
-                              </div>
-                            ))}
-                          </Slider>
-                        ) : (
-                          <img
-                            alt={product.title}
-                            className="object-contain object-center h-full w-full"
-                            src={product.thumbnail}
-                          />
-                        )}
-                      </div>
-                      <h2 className="text-xl pt-4 font-bold title-font text-gray-900 mt-5">
+                  <div className="bg-white hover:shadow-xl rounded-lg shadow-lg overflow-hidden">
+                <Link to="/ProductsDetail">
+                    <div
+                      className="h-64 overflow-hidden"
+                      onMouseEnter={() => {
+                        setIshover(true);
+                        setIsHoverSetProduct(product.id);
+                      }}
+                      onMouseLeave={() => setIshover(false)}
+                    >
+                      {isHoverSetProduct === product.id && isHover ? (
+                        <Slider {...settings}>
+                          {product.images.map((image, index) => (
+                            <div key={index} className="h-64">
+                              <img
+                                src={image}
+                                alt={`Product ${index}`}
+                                className="h-full w-full object-cover"
+                                onClick={() => selectThumbnail(image)}
+                              />
+                            </div>
+                          ))}
+                        </Slider>
+                      ) : (
+                        <img
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className="h-full w-full object-cover"
+                        />
+                      )}
+                    </div>
+                    </Link>
+                    <div className="p-4">
+                      <h2 className="text-lg font-bold line-clamp-1 text-gray-800">
                         {product.title}
                       </h2>
-                      <p className="text-lg text-ellipsis line-clamp-1 mt-2">
+                      <p className="text-xs line-clamp-1 mt-2 text-gray-600">
                         {product.description}
                       </p>
-                      <div className="flex pt-3">
-                        <p className="text-lg font-bold leading-relaxed">
-                          <i className="fa-solid fa-indian-rupee-sign pr-1"></i>
-                          {product.price -
-                            parseInt(
-                              (product.price * product.discountPercentage) / 100
-                            )}
-                        </p>
-                        <p className="text-base font-semibold px-3 leading-relaxed text-gray-500 line-through">
-                          <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
-                          {product.price}
-                        </p>
-                        <p className="text-base leading-relaxed font-bold text-red-500">
+                        <div className="flex  justify-between  mt-3">
+                        <div className="flex items-center">
+                          <span className="text-sm font-bold text-gray-800">
+                            ₹
+                            {product.price -
+                              parseInt(
+                                (product.price * product.discountPercentage) / 100
+                              )}
+                          </span>
+                          <span class="font-semibold text-xs mx-2 line-through text-slate-900">
+                          ₹{product.price}
+                        </span>
+                        <span className="text-xs leading-relaxed font- text-red-500">
                           ({product.discountPercentage}% off)
-                        </p>
-                      </div>{" "}
-                    </Link>
-                    <p className="text-lg leading-relaxed mt-2 py-1 w-20 border text-center font-semibold rounded-md">
-                      {product.rating}
-                      <i className="fa-solid fa-star pl-1 text-teal-500"></i>
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="text-lg leading-relaxed ">
-                          <label
-                            htmlFor=""
-                            className="text-green-500 font-semibold"
-                          >
-                            In stock :{" "}
-                          </label>
-                          {product.stock}
-                        </p>
-                      </div>
-                      {/* ----------BOX WISHLIST----- */}
-                      <div
-                        className={`border rounded-full text-center  px-3 mt-4 py-2   ${
-                          wishlist?.some((item) => item.id === product.id)
-                            ? "bg-gray-300 "
-                            : ""
-                        }`}
-                        onClick={(e) => whishlistbtn(product.id, e)}
-                      >
-                        {wishlist?.some((item) => item.id === product.id) ? (
-                          <i className="fas fa-heart text-rose-500 text-xl"></i>
-                        ) : (
-                          <i className="fa-regular fa-heart text-xl"></i>
-                        )}
-                        <label htmlFor="" className="font-semibold text-xl">
-                          {wishlist?.some((item) => item.id === product.id)
-                            ? ""
-                            : ""}
-                        </label>
+                        </span>
+                        </div>
+                        {/* Wishlist button */}
+                        <div
+                          className={`rounded-full text-center px-2 py-1 ${
+                            wishlist?.some((item) => item.id === product.id)
+                              ? "bg-gray-300"
+                              : "bg-transparent border border-gray-300"
+                          }`}
+                          onClick={(e) => whishlistbtn(product.id, e)}
+                        >
+                          {wishlist?.some((item) => item.id === product.id) ? (
+                            <i className="fas fa-heart text-rose-500"></i>
+                          ) : (
+                            <i className="far fa-heart text-gray-500"></i>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
+            
+                </div>
                 </div>
               ))}
             </div>
           )}
           {/* open model */}
           {isModalOpen && selectedProduct && <ProductsDetail />}
+        
         </div>
       </section>
 
@@ -316,7 +293,6 @@ console.log("products::::",products);
           </button>
         </div>
       ) : null}
-      <Footer />
     </div>
   );
 };

@@ -4,8 +4,8 @@ import FilterProducts from "./FilterProducts ";
 
 const Header = ({ count, searchTerm, handleSearchChange }) => {
   return (
-    <header className="bg-white shadow-md">
-      <nav className="mx-14 h-20 flex justify-between items-center ">
+    <header className="bg-white shadow-md sm:w-full">
+      <nav className="mx-14 h-20 flex justify-between items-center  ">
         <Link to="/" className="flex items-center justify-center">
           <img src="../myntralogo.png" className="w-28 mt-2" alt="Logo" />
         </Link>
@@ -25,7 +25,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
           <Link to="/jewellery" className="nav-link">
             JEWELLERY
           </Link>
-          <Link to="/lapto" className="nav-link">
+          <Link to="/laptop" className="nav-link">
             LAPTOP
           </Link>
         </div>
