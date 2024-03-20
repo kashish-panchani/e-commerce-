@@ -1,57 +1,133 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import FilterProducts from "./FilterProducts ";
 
 const Header = ({ count, searchTerm, handleSearchChange }) => {
-  return (
-    <header className="bg-white shadow-md sm:w-full">
-      <nav className="mx-14 h-20 flex justify-between items-center  ">
-        <Link to="/" className="flex items-center justify-center">
-          <img src="../myntralogo.png" className="w-28 mt-2" alt="Logo" />
-        </Link>
-        <div className="space-x-10 mr-32 font-semibold">
-          <Link to="/all" className="nav-link">
-            ALL
-          </Link>
-          <Link to="/smartphones" className="nav-link">
-            SMARTPHONES
-          </Link>
-          <Link to="/bags" className="nav-link">
-            BAG
-          </Link>
-          <Link to="/sunglasses" className="nav-link">
-            SUNGLASSES
-          </Link>
-          <Link to="/jewellery" className="nav-link">
-            JEWELLERY
-          </Link>
-          <Link to="/laptop" className="nav-link">
-            LAPTOP
-          </Link>
-        </div>
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-        <div className="flex items-center space-x-6">
-          <div>
-            <FilterProducts
-              searchTerm={searchTerm}
-              handleSearchChange={handleSearchChange}
-            />
-          </div>
-          <Link to="/login">
-            <i class="fa-regular fa-user text-xl "></i>
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+  return (
+    <header className="bg-white shadow-md sm:w-full md:w-full">
+      <nav className="bg-white dark:bg-gray-900  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div className="max-w-screen-xl  flex flex-wrap justify-between items-center  mx-auto p-4">
+          <Link
+            to="/"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <img src="../myntralogo.png" className="h-10" alt="myntra Logo" />
           </Link>
-          <div className="relative">
-            <Link to="/wishlist" className="text-gray-700 hover:text-gray-900">
-              <i className="far fa-heart text-2xl"></i>
-            </Link>
+          <div className="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        
+         <FilterProducts
+           searchTerm={searchTerm}
+           handleSearchChange={handleSearchChange}
+         />
+    
+       <div className="flex xl:text-xl  md:text-base">
+       <div>
+       <Link to="/login">
+           <i class="fa-regular fa-user  "></i>
+         </Link>
+         </div>
+         
+           <Link to="/wishlist" className="text-gray-700  hover:text-gray-900">
+             <i className="far fa-heart mx-4 "></i>
+           </Link>
+         
+         <div className="relative ">
+           <Link to="/cart" className="text-gray-700 hover:text-gray-900">
+             <i className="fas fa-shopping-cart "></i>
+             <span className="absolute bottom-5  bg-red-500 text-white rounded-full right-4 w-5 h-5 md:h-4 md:w-4  md:text-xs  flex items-center justify-center ">
+               {count}
+             </span>
+           </Link>
+           </div>
+           </div>
+            <button
+              onClick={toggleMobileMenu}
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-sticky"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
           </div>
-          <div className="relative">
-            <Link to="/cart" className="text-gray-700 hover:text-gray-900">
-              <i className="fas fa-shopping-cart text-2xl "></i>
-              <span className="absolute bottom-6  bg-red-500 text-white rounded-full right-5 w-5 h-5 flex items-center justify-center text-xs">
-                {count}
-              </span>
-            </Link>
+          <div
+            className={`${
+              isMobileMenuOpen ? "block" : "hidden"
+            } items-center justify-center w-full md:flex md:text-xs md:w-auto  md:order-1`}
+            id="navbar-sticky"
+          
+          >
+            <ul className=" navbar flex flex-col p-4  md:text-['10px'] mt-4 font-medium   border border-gray-100 rounded-lg bg-gray-50 md:space-x-2    xl:space-x-7 lg:space-x-5   md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"  >
+              <li>
+                <Link
+                  to="/all"
+                  className="block py-2 px-3 text-['10px'] text-white bg-gray-400 rounded md:bg-transparent md:text-gray-900 md:p-0 md:dark:text-gray-500"
+                  aria-current="page"
+                >
+                  ALL
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/smartphones"
+                  className="block py-2 px-3  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  SMARTPHONES{" "}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/bags"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  BAG
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/sunglasses"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  SUNGLASSES
+                </Link>
+              </li>{" "}
+              <li>
+                <Link
+                  to="/jewellery"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                  JEWELLERY
+                </Link>
+              </li>{" "}
+              <li>
+                <Link
+                  to="/laptop"
+                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                   LAPTOP
+                </Link>
+              </li>
+         
+            </ul>
           </div>
         </div>
       </nav>
@@ -60,3 +136,59 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
 };
 
 export default Header;
+
+
+// return (
+//   <header className="bg-white shadow-md">
+//     <nav className="mx-14 h-20 flex justify-between items-center ">
+//       <Link to="/" className="flex items-center justify-center">
+//         <img src="../myntralogo.png" className="w-28 mt-2" alt="Logo" />
+//       </Link>
+//       <div className="space-x-10 mr-32 font-semibold">
+//         <Link to="/all" className="nav-link">
+//           ALL
+//         </Link>
+//         <Link to="/smartphones" className="nav-link">
+//           SMARTPHONES
+//         </Link>
+//         <Link to="/bags" className="nav-link">
+//           BAG
+//         </Link>
+//         <Link to="/sunglasses" className="nav-link">
+//           SUNGLASSES
+//         </Link>
+//         <Link to="/jewellery" className="nav-link">
+//           JEWELLERY
+//         </Link>
+//         <Link to="/laptop" className="nav-link">
+//           LAPTOP
+//         </Link>
+//       </div>
+
+//       <div className="flex items-center space-x-6">
+//         <div>
+//           <FilterProducts
+//             searchTerm={searchTerm}
+//             handleSearchChange={handleSearchChange}
+//           />
+//         </div>
+//         <Link to="/login">
+//           <i class="fa-regular fa-user text-xl "></i>
+//         </Link>
+//         <div className="relative">
+//           <Link to="/wishlist" className="text-gray-700 hover:text-gray-900">
+//             <i className="far fa-heart text-2xl"></i>
+//           </Link>
+//         </div>
+//         <div className="relative">
+//           <Link to="/cart" className="text-gray-700 hover:text-gray-900">
+//             <i className="fas fa-shopping-cart text-2xl "></i>
+//             <span className="absolute bottom-6  bg-red-500 text-white rounded-full right-5 w-5 h-5 flex items-center justify-center text-xs">
+//               {count}
+//             </span>
+//           </Link>
+//         </div>
+//       </div>
+//     </nav>
+//   </header>
+// );
