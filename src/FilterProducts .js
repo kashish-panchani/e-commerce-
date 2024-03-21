@@ -8,18 +8,16 @@ const FilterProducts = ({ searchTerm, handleSearchChange }) => {
         placeholder="Search For Products..."
         value={searchTerm}
         onChange={handleSearchChange}
-        
-        className=" h-8 pl-4  border border-r-0  sm:text-xs w-44 md:h-8  lg:w-60 lg:h-9 xl:w-96   xl:text-sm rounded-l-md text-gray-700 focus:outline-none sm:h-7  xl:h-10"
+        className=" h-7 pl-4 w-28 text-[9px] border border-r-0  sm:text-xs sm:w-56 sm:h-8 sm:text-[12px]   lg:w-[220px] lg:h-8 md:w-[150px] md:h-[29px] lg:text-[12px] xl:text-[15px] md:text-[11px]  xl:w-[300px]   xl:text-sm rounded-l-md text-gray-700 focus:outline-none   xl:h-10"
       />
-      <button className=" border-l-0 w-10 h-8    lg:h-9 xl:h-10 border rounded-r-md text-gray-300 ">
-        <i className="fas fa-search text-sm"></i>
+      <button className=" border-l-0 w-10 h-7 sm:h-8 xl:h-10  lg:h-8 md:w-[35px] md:h-[29px] border rounded-r-md text-gray-300 ">
+        <i className="fas fa-search text-xs xl:text-[16px]  "></i>
       </button>
     </div>
   );
 };
 
 export default FilterProducts;
-
 
 // ------------------header code of original----------------------
 // return (
