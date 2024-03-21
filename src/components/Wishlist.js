@@ -137,7 +137,7 @@ const Wishlist = () => {
 
   console.log("wishlist.length", wishlist.length);
   return (
-    <div>
+    <div className="overflow-hidden">
       <Header count={count} />
       {isModalOpen && selectedProduct && (
         <ProductsDetail

@@ -9,45 +9,54 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
   return (
-    <header className="bg-white shadow-md sm:w-full md:w-full">
+    <header
+      className="overflow-hidden
+    bg-white shadow-md sm:w-full md:w-full"
+    >
       <nav className="bg-white dark:bg-gray-900  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-        <div className="max-w-screen-xl  flex flex-wrap justify-between items-center  mx-auto p-4">
+        <div className=" max-w-[400px] xl:max-w-[1218px] lg:max-w-[1000px] md:max-w-[770px] sm:max-w-[633px] flex flex-wrap justify-between items-center  mx-auto p-4">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img src="../myntralogo.png" className="h-10" alt="myntra Logo" />
+            <img
+              src="../myntralogo.png"
+              className="h-8  xl:h-14 lg:h-[40px] md:h-[32px] sm:h-[40px]"
+              alt="myntra Logo"
+            />
           </Link>
           <div className="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        
-         <FilterProducts
-           searchTerm={searchTerm}
-           handleSearchChange={handleSearchChange}
-         />
-    
-       <div className="flex xl:text-xl  md:text-base">
-       <div>
-       <Link to="/login">
-           <i class="fa-regular fa-user  "></i>
-         </Link>
-         </div>
-         
-           <Link to="/wishlist" className="text-gray-700  hover:text-gray-900">
-             <i className="far fa-heart mx-4 "></i>
-           </Link>
-         
-         <div className="relative ">
-           <Link to="/cart" className="text-gray-700 hover:text-gray-900">
-             <i className="fas fa-shopping-cart "></i>
-             <span className="absolute bottom-5 text-xs bg-red-500 text-white rounded-full right-4 w-4 h-4 md:h-4 md:w-4  md:text-xs  flex items-center justify-center ">
-               {count}
-             </span>
-           </Link>
-           </div>
-           </div>
+            <FilterProducts
+              searchTerm={searchTerm}
+              handleSearchChange={handleSearchChange}
+            />
+
+            <div className="flex text-[12px] xl:text-xl  lg:text-[16px]  md:text-[12px] sm:text-[15px]">
+              <div>
+                <Link to="/login">
+                  <i class="fa-regular fa-user  "></i>
+                </Link>
+              </div>
+
+              <Link
+                to="/wishlist"
+                className="text-gray-700  hover:text-gray-900"
+              >
+                <i className="far fa-heart mx-3  sm:mx-3 xl:mx-4 lg:mx-[12px] md:mx-[5px] "></i>
+              </Link>
+
+              <div className="relative ">
+                <Link to="/cart" className="text-gray-700 hover:text-gray-900">
+                  <i className="fas fa-shopping-cart "></i>
+                  <span className="absolute bottom-3 right-2 text-[10px] w-3 h-3 bg-red-500 text-white rounded-full  xl:w-4 xl:h-4 xl:bottom-5 xl:right-4  xl:text-3 sm:w-3 sm:h-3 sm:bottom-4  lg:w-3 lg:h-3 lg:right-4 lg:text-[10px] lg:bottom-4 md:bottom-[14px] md:right-[10px] md:text-[8px] md:w-3 md:h-3 flex items-center justify-center ">
+                    {count}
+                  </span>
+                </Link>
+              </div>
+            </div>
             <button
               onClick={toggleMobileMenu}
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 w-8 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-sticky"
               aria-expanded={isMobileMenuOpen}
             >
@@ -74,13 +83,12 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               isMobileMenuOpen ? "block" : "hidden"
             } items-center justify-center w-full md:flex md:text-xs md:w-auto  md:order-1`}
             id="navbar-sticky"
-          
           >
-            <ul className=" navbar flex flex-col p-4  md:text-['10px'] mt-4 font-medium   border border-gray-100 rounded-lg bg-gray-50 md:space-x-2    xl:space-x-7 lg:space-x-5   md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"  >
+            <ul className=" navbar flex flex-col p-4 xl:text-[14px] lg:text-[12px] md:text-[10px] mt-4 font-medium   border border-gray-100 rounded-lg bg-gray-50 md:space-x-[6px]    xl:space-x-7 lg:space-x-5   md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
                   to="/all"
-                  className="block py-2 px-3 text-['10px'] text-white bg-gray-400 rounded md:bg-transparent md:text-gray-900 md:p-0 md:dark:text-gray-500"
+                  className="block py-2 px-3  text-white bg-gray-400 rounded md:bg-transparent md:text-gray-900 md:p-0 md:dark:text-gray-500"
                   aria-current="page"
                 >
                   ALL
@@ -123,10 +131,9 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
                   to="/laptop"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
-                   LAPTOP
+                  LAPTOP
                 </Link>
               </li>
-         
             </ul>
           </div>
         </div>
@@ -136,5 +143,3 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
 };
 
 export default Header;
-
-

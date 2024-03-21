@@ -116,7 +116,7 @@ const Jewellery = () => {
           searchTerm={searchTerm}
           handleSearchChange={handleSearchChange}
         />
-        <div className="container mx-auto py-10">
+        <div className="overflow-hidden container mx-auto py-10">
           <div className="flex flex-wrap -m-4">
             {filteredSmartphones.map((product) => (
               <div

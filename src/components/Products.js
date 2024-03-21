@@ -137,7 +137,7 @@ const Products = () => {
   const endIndex = currentPage * perPage;
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 overflow-hidden min-h-screen">
       <Header
         count={count}
         toggleCartModal={toggleCartModal}
