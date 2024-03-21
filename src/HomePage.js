@@ -69,7 +69,7 @@ const HomePage = () => {
         // handleSearchChange={handleSearchChange}
       />
 
-      <div>
+      <div className="container mx-auto">
         {/* All products */}
         <Link to="/all">
           <div className="flex pt-10 justify-center items-center ">
@@ -105,7 +105,7 @@ const HomePage = () => {
       <div className="flex justify-center items-center py-20 text-4xl font-semibold">
         <h1>Deal-icious Offers</h1>
       </div>
-      <div class="container  gap-3 mx-auto max-w flex flex-wrap w-full  overflow-hidden bg-white">
+      <div class="container gap-3 mx-auto max-w flex w-full justify-center flex-wrap  sm:flex-wrap   overflow-hidden bg-white">
         <Link to="/mens-shoes">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img

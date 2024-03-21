@@ -105,29 +105,7 @@ const Products = () => {
       thumbnail: image,
     }));
   };
-  // const closeModal = () => {
-  //   setSelectedProduct(null);
-  //   setIsModalOpen(false);
-  //   setAddedToCart(false);
-  // };
-  // const addToCart = () => {
-  //   const isAlreadyInCart = cartItems?.some(
-  //     (item) => item.id === selectedProduct.id
-  //   );
-  //   if (isAlreadyInCart) {
-  //     setIsCartModalOpen(true);
-  //     closeModal();
-  //     return;
-  //   }
-  //   const maxQuantity = 10;
-  //   const productWithQuantity = { ...selectedProduct, quantity: 1 };
-  //   if (cartItems.length < maxQuantity) {
-  //     setCartItems([...cartItems, productWithQuantity]);
-  //     setCount(count + 1);
-  //     setAddedToCart(true);
-  //     // toast.success("Item added to cart successfully");
-  //   }
-  // };
+ 
 
   const toggleCartModal = () => {
     setIsCartModalOpen(true);
@@ -170,7 +148,7 @@ const Products = () => {
       <section className="py-10 px-5 sm:px-10">
         <div className="container mx-auto py-10">
           {searchTerm && filteredProducts.length === 0 ? (
-            <div className="text-center py-10 text-2xl font-semibold">
+            <div className="text-center pt-52 text-2xl font-semibold">
               No products found
             </div>
           ) : (
@@ -298,22 +276,4 @@ const Products = () => {
 };
 
 export default Products;
-//   <div
-//   className={`border flex justify-center items-center ml-1 px-1 mt-4 py-1 w-36  ${
-//     wishlist.some((item) => item.id === product.id)
-//     ? "bg-gray-300 "
-// : ""
-//   }`}
-//   onClick={(e) => whishlistbtn(product.id, e)}
-// >
-//   {wishlist.some((item) => item.id === product.id) ? (
-//     <i className="fas fa-heart text-red-600 mr-1"></i>
-//   ) : (
-//     <i className="fa-regular fa-heart "></i>
-//   )}
-//   <label htmlFor="" className="font-semibold mx-2">
-//     {wishlist.some((item) => item.id === product.id)
-//       ? "WISHLISTED"
-//       : "WISHLIST"}
-//   </label>
-// </div>
+

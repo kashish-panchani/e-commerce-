@@ -51,6 +51,7 @@ const Wishlist = () => {
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
     setIsModalOpen(true);
+    
 
     // gotocart
     const isInCart = cartItems?.some((item) => item.id === product.id);
@@ -151,14 +152,15 @@ const Wishlist = () => {
       )}
       {wishlist.length ? (
         <>
-          <div className="container mt-16 ml-15 mx-auto font-bold text-base  text-black">
+        <div className="container mx-auto">
+          <div className="container mt-16 pl-16 mx-auto font-bold text-base  text-black">
             My Wishlist{" "}
             <span className="font-normal ">{wishlist.length} items</span>
           </div>
-          <div class="relative m-16 grid grid-cols-4  max-w-full overflow-hidden rounded-lg ">
+          <div class=" relative m-10  m xl:max-w-full md:max-w-5xl   grid grid-cols-1  xl:m-20   xl:grid-cols-4 md:grid-cols-3  sm:grid-cols-2     sm:m-8  overflow-hidden rounded-lg ">
             {wishlist.map((product) => (
               <>
-                <div class="relative m-2 flex flex-wrap  max-w-xs overflow-hidden rounded-lg border hover:shadow-xl border-gray-100 bg-white shadow-md">
+                <div class="relative  flex flex-wrap  max-w-xl mx-5 my-3 xl:mx-3 md:mx-2 sm:m-2 overflow-hidden rounded-lg border hover:shadow-xl border-gray-100 bg-white shadow-md">
                   <div className="w-full">
                     <button
                       className="  float-right"
@@ -168,20 +170,16 @@ const Wishlist = () => {
                     </button>
                   </div>
                   <a
-                    className="relative  mx-3 mt-3 flex h-52 overflow-hidden "
+                    className="relative  mx-3  flex h-52 overflow-hidden "
                     href="#"
                   >
                     <img
                       style={{ width: "300px" }}
-                      className="object-contain rounded-xl"
+                      className="object-cover  rounded-xl"
                       src={product.thumbnail}
                       alt="product image"
                     />
-                    {/* <div className="flex justify-between  items-center w-full absolute top-0 left-0 p-2">
-                      <span className="rounded-full bg-black px-2 text-center text-sm font-medium text-white">
-                        {product.discountPercentage}% OFF
-                      </span>
-                    </div> */}
+                  
                   </a>
                   <div class="mt-4 px-5 w-full pb-5">
                     <a href="#">
@@ -233,75 +231,24 @@ const Wishlist = () => {
               </>
             ))}
           </div>
-          {/* <div className="container mx-auto flex flex-wrap ">
-            {wishlist.map((product) => (
-              <div key={product.id} className="p-4">
-                <div
-                  className=" border  hover:shadow-xl w-fit
-                 cursor-pointer  bg-white   mt-20  "
-                  onClick={() => openModal(product)}
-                >
-                  <div className=" absolute border bg-gray-100 rounded-full ">
-                    <button onClick={(e) => removeFromWishlist(product.id, e)}>
-                      <i className="fa-solid fa-xmark px-1 pl text-xs"></i>
-                    </button>
-                  </div>
-                  <div className="h-fit  w-60 overflow-hidden">
-                    <img
-                      alt={product.title}
-                      className="h-full  w-full object-cover"
-                      src={product.thumbnail}
-                    />
-                  </div>
-                  <h2 className="text-xl py-1 font-semibold text-gray-900 mt-5">
-                    {product.title}
-                  </h2>
-
-                  <p className="text-lg  title-font text-gray-900">
-                    {product.brand}
-                  </p>
-                  <div className="flex items-center ">
-                    <p className="text-sm font-bold leading-relaxed">
-                      ₹
-                      {product.price -
-                        parseInt(
-                          (product.price * product.discountPercentage) / 100
-                        )}
-                    </p>
-                    <p className="text-xs font-semibold px-3 leading-relaxed  text-gray-500 line-through">
-                      <i className="fa-solid fa-indian-rupee-sign text-gray-500 text-sm"></i>
-                      {product.price}
-                    </p>
-                  </div>
-                  <p className="text-xs leading-relaxed font-bold text-red-500">
-                    ({product.discountPercentage}% off)
-                  </p>
-                  <div
-                    className="border mt-5  py-5 text-sm text-white  font-semibold flex items-center justify-center bg-slate-600"
-                    onClick={(e) => moveToCart(product, e)}
-                  >
-                    <h1>MOVE TO CART</h1>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div> */}
-        </>
+        
+          </div>
+          </>
       ) : (
         <>
           <div>
-            <h1 className="pt-36 flex justify-center items-center font-bold text-gray-700 text-2xl">
+            <h1 className="pt-36 flex justify-center items-center font-bold text-gray-700 text-base xl:text-2xl md:text-xl sm:text-lg">
               YOUR WISHLIST IS EMPTY
             </h1>
-            <p className="flex justify-center items-center text-xl text-gray-400 py-5  ">
+            <p className="flex justify-center items-center text-sm sm:text-base md:text-lg xl:text-xl  text-gray-400 py-5 px-10  ">
               Add items that you like to your wishlist. Review them anytime and
               easily move them to the bag.
             </p>
             <div className="flex items-center justify-center">
-              <img src="../empty-wishlist.png" className=" py-3" />
+              <img src="../empty-wishlist.png" className=" py-3 w-56 xl:w-96 md:w-80" />
             </div>
             <div className="flex justify-center items-center ">
-              <button className=" text-blue-600 text-xl font-bold border rounded-lg border-blue-800 my-10 py-4 px-14 cursor-pointer">
+              <button className=" text-blue-600 text-sm font-bold border rounded-lg border-blue-800 my-10 py-4 px-4 xl:px-14 xl:text-xl md:px-10 md:text-base cursor-pointer">
                 <Link to="/ALL">CONTINUE SHOPPING</Link>
               </button>
             </div>

@@ -35,9 +35,10 @@
     height: 10px;
   }
 } */
-@media only screen and (min-width: 505px) {
-  .serch{
-    height: 40px;
+@media only screen and (max-width: 505px) {
+  .responsive{
+  display: flex;
+  justify-content: start;
   }
 }
 .App-link {

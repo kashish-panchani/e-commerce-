@@ -125,7 +125,7 @@ const WomenWatch = () => {
             {filteredSmartphones.map((product) => (
               <div
                 key={product.id}
-                className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                className="p-8 sm:p-2 xl:p-4 md:p-3  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
                 onClick={() => openModal(product)}
               >
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">

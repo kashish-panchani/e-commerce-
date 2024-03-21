@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Header2 from "../Header2";
 import Footer from "../Footer";
@@ -8,7 +8,9 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [itemToRemove, setItemToRemove] = useState(null);
   const [count, setCount] = useState(0);
-
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [addedToCart, setAddedToCart] = useState(false);
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
@@ -49,6 +51,13 @@ const Cart = () => {
   const handleCancelRemove = () => {
     setItemToRemove(null);
   };
+  const openModal = useCallback((product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+    const isInCart = cartItems?.some((item) => item.id === product.id);
+    setAddedToCart(isInCart);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+  });
   console.log("cartitem::", cartItems);
   return (
     <div>
@@ -68,7 +77,7 @@ const Cart = () => {
             </div>
             <div>
               <Link to="/wishlist">
-                <button className="border border-blue-800  rounded-md py-4 px-10 m-10 text-blue-600 font-bold">
+                <button className="border border-blue-800  rounded-md py-5 px-3 text-sm  md:px-8 md:py-5 md:text-base xl:px-10 xl:text-lg xl:py-4 m-10 text-blue-600 font-bold">
                   ADD ITEMS FROM WISHLIST
                 </button>
               </Link>
@@ -81,23 +90,25 @@ const Cart = () => {
               <div class="rounded-lg md:w-2/3">
                 {cartItems.map((item) => (
                   <>
-                    <div class="justify-between mb-6 border rounded-lg bg-white p-7 shadow-md sm:flex sm:justify-start">
-                      <Link to="/ProductsDetail">
+                    <div class="responsive flex justify-between mb-6 border rounded-lg bg-white p-7 shadow-md ">
+                      
                         <img
                           src={item.thumbnail}
                           alt="product-image"
-                          class="w-32 rounded-lg sm:w-40 object-contain h-32"
+                          class="w-28 xl:w-36 lg:w-32 mt-5 sm:mt-0 md:w-28 sm:w-32  rounded-lg  object-contain h-32"
                         />
-                      </Link>
-                      <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                        <div class="mt-5 sm:mt-0">
-                          <h2 class="text-lg font-bold text-gray-900">
+                     
+                      <div class="ml-4 flex sm:w-full sm:justify-between">
+                        <div class=" mt-5 sm:mt-0">
+                        <Link to="/ProductsDetail">
+                          <h2 class="text-lg font-bold text-gray-900" onClick={()=>openModal(item)}>
                             {item.title}
                           </h2>
+                          </Link>
                           <p class="my-2 text-sm  text-gray-700">
                             {item.category}
                           </p>
-                          <p class="my-2 text-sm  text-gray-700">
+                          <p class="my-2 text-sm line-clamp-2 text-gray-700">
                             {item.description}
                           </p>
                           <p className="my-2">
@@ -105,7 +116,7 @@ const Cart = () => {
                             {item.price -
                               parseInt(
                                 (item.price * item.discountPercentage) / 100
-                              )}{" "}
+                              )}{" "} 
                             <label htmlFor="" className="text-green-600">
                               (Discount price)
                             </label>
@@ -146,7 +157,7 @@ const Cart = () => {
                                 // toast.error("Product removed from cart");
                               }}
                             >
-                              <i class="fa-solid fa-xmark"></i>
+                              <i class="fa-solid fa-xmark "></i>
                             </button>
                           </div>
                         </div>
