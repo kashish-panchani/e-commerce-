@@ -11,10 +11,10 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
   return (
     <header
       className="overflow-hidden
-    bg-white shadow-md sm:w-full md:w-full"
+    bg-white shadow-md  sm:w-full md:w-full"
     >
-      <nav className="bg-white dark:bg-gray-900  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-        <div className=" max-w-[400px] xl:max-w-[1218px] lg:max-w-[1000px] md:max-w-[770px] sm:max-w-[633px] flex flex-wrap justify-between items-center  mx-auto p-4">
+      <nav className="overflow-hidden bg-white dark:bg-gray-900 sm:container sm:mx-auto  w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div className=" max-w-full xl:max-w-[1218px] lg:max-w-[1000px] md:max-w-[770px] sm:max-w-[633px] flex flex-wrap justify-between items-center  sm:mx-auto p-4">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
@@ -25,13 +25,13 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               alt="myntra Logo"
             />
           </Link>
-          <div className="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <div className="flex justify-center items-center sm:flex sm:justify-center sm:items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <FilterProducts
               searchTerm={searchTerm}
               handleSearchChange={handleSearchChange}
             />
 
-            <div className="flex text-[12px] xl:text-xl  lg:text-[16px]  md:text-[12px] sm:text-[15px]">
+            <div className="flex text-[12px] xl:text-xl  lg:text-[16px]  md:text-[12px] sm:text-[17px]">
               <div>
                 <Link to="/login">
                   <i class="fa-regular fa-user  "></i>
@@ -42,13 +42,13 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
                 to="/wishlist"
                 className="text-gray-700  hover:text-gray-900"
               >
-                <i className="far fa-heart mx-3  sm:mx-3 xl:mx-4 lg:mx-[12px] md:mx-[5px] "></i>
+                <i className="far fa-heart mx-3  sm:mx-3 xl:mx-4 lg:mx-[12px] md:mx-[11px] "></i>
               </Link>
 
               <div className="relative ">
                 <Link to="/cart" className="text-gray-700 hover:text-gray-900">
                   <i className="fas fa-shopping-cart "></i>
-                  <span className="absolute bottom-3 right-2 text-[10px] w-3 h-3 bg-red-500 text-white rounded-full  xl:w-4 xl:h-4 xl:bottom-5 xl:right-4  xl:text-3 sm:w-3 sm:h-3 sm:bottom-4  lg:w-3 lg:h-3 lg:right-4 lg:text-[10px] lg:bottom-4 md:bottom-[14px] md:right-[10px] md:text-[8px] md:w-3 md:h-3 flex items-center justify-center ">
+                  <span className="absolute bottom-3 right-2 text-[8px] w-3 h-3 bg-red-500 text-white rounded-full  xl:w-4 xl:h-4 xl:bottom-5 xl:right-4  xl:text-[11px] sm:w-4 sm:h-4 sm:bottom-4 sm:right-3 sm:text-[11px]  lg:w-[13px] lg:h-[13px] lg:right-3 lg:text-[9px] lg:bottom-4 md:bottom-[12px] md:right-[7px] md:text-[8px] md:w-3 md:h-3 flex items-center justify-center ">
                     {count}
                   </span>
                 </Link>
@@ -84,7 +84,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
             } items-center justify-center w-full md:flex md:text-xs md:w-auto  md:order-1`}
             id="navbar-sticky"
           >
-            <ul className=" navbar flex flex-col p-4 xl:text-[14px] lg:text-[12px] md:text-[10px] mt-4 font-medium   border border-gray-100 rounded-lg bg-gray-50 md:space-x-[6px]    xl:space-x-7 lg:space-x-5   md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className=" navbar flex flex-col p-4 xl:text-[14px] lg:text-[12px] md:text-[11px] mt-4 font-medium   border border-gray-100 rounded-lg bg-gray-50 md:space-x-4    xl:space-x-7 lg:space-x-6   md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
                   to="/all"

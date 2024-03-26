@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "./Header";
 // import banner from "./Images/heroimage.jpg";
 
@@ -13,6 +13,8 @@ import footerimg from "./Images/footeimage.webp";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import ProductsDetail from "./components/ProductsDetail";
 
 const HomePage = () => {
   const [count, setCount] = useState(0);
@@ -21,15 +23,39 @@ const HomePage = () => {
   const [wishlist, setWishlist] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [addedToCart, setAddedToCart] = useState(false);
-  console.log("products::", products);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHover, setIshover] = useState(false);
+  const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`https://dummyjson.com/products?limit=30`);
+      const response = await fetch(`https://dummyjson.com/products?limit=0`);
       const data = await response.json();
       setProducts(data.products);
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    setFilteredProducts(filtered);
+  
+  }, [searchTerm, products]);
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
   const addToCart = () => {
     const isAlreadyInCart = cartItems?.some(
       (item) => item.id === selectedProduct.id
@@ -59,16 +85,144 @@ const HomePage = () => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     setCount(cartItems.length);
   }, [cartItems]);
-
+  const productmodal = (product) => {
+    openModal(product);
+    setSearchTerm("");
+  };
+  const openModal = useCallback((product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+    const isInCart = cartItems?.some((item) => item.id === product.id);
+    setAddedToCart(isInCart);
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+  });
+  const selectThumbnail = (image) => {
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      thumbnail: image,
+    }));
+  };
+  const whishlistbtn = (productId, e) => {
+    e.stopPropagation();
+    const isInWishlist = wishlist.some((item) => item.id === productId);
+    const updatedWishlist = isInWishlist
+      ? wishlist.filter((item) => item.id !== productId)
+      : [...wishlist, selectedProduct];
+    setWishlist(updatedWishlist);
+    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    toast[isInWishlist ? "error" : "success"](
+      isInWishlist ? "Removed from wishlist" : "Added to wishlist"
+    );
+  };
   return (
     <>
       <Header
         count={count}
         // toggleCartModal={toggleCartModal}
-        // searchTerm={searchTerm}
-        // handleSearchChange={handleSearchChange}
+        searchTerm={searchTerm}
+        handleSearchChange={handleSearchChange}
       />
-
+   {filteredProducts && searchTerm ? (
+        <section className="py-10 px-5 sm:px-10">
+          <div className="container mx-auto py-10">
+            {searchTerm && filteredProducts.length === 0 ? (
+              <div className="text-center py-36  text-sm sm:text-2xl font-semibold">
+                No products found
+              </div>
+            ) : (
+              <div className="flex flex-wrap -m-4">
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 "
+                    onClick={() => productmodal(product)}
+                  >
+                    <div className="bg-white hover:shadow-xl rounded-lg shadow-lg overflow-hidden">
+                      <Link to="/ProductsDetail">
+                        <div
+                          className="h-64 overflow-hidden"
+                          onMouseEnter={() => {
+                            setIshover(true);
+                            setIsHoverSetProduct(product.id);
+                          }}
+                          onMouseLeave={() => setIshover(false)}
+                        >
+                          {isHoverSetProduct === product.id && isHover ? (
+                            <Slider {...settings}>
+                              {product.images.map((image, index) => (
+                                <div key={index} className="h-64">
+                                  <img
+                                    src={image}
+                                    alt={`Product ${index}`}
+                                    className="h-full w-full object-cover"
+                                    onClick={() => selectThumbnail(image)}
+                                  />
+                                </div>
+                              ))}
+                            </Slider>
+                          ) : (
+                            <img
+                              src={product.thumbnail}
+                              alt={product.title}
+                              className="h-full w-full object-cover"
+                            />
+                          )}
+                        </div>
+                      </Link>
+                      <div className="p-4">
+                        <h2 className="text-lg font-bold line-clamp-1 text-gray-800">
+                          {product.title}
+                        </h2>
+                        <p className="text-xs line-clamp-1 mt-2 text-gray-600">
+                          {product.description}
+                        </p>
+                        <div className="flex  justify-between  mt-3">
+                          <div className="flex items-center">
+                            <span className="text-sm font-bold text-gray-800">
+                              ₹
+                              {product.price -
+                                parseInt(
+                                  (product.price * product.discountPercentage) /
+                                    100
+                                )}
+                            </span>
+                            <span class="font-semibold text-xs mx-2 line-through text-slate-900">
+                              ₹{product.price}
+                            </span>
+                            <span className="text-xs leading-relaxed font- text-red-500">
+                              ({product.discountPercentage}% off)
+                            </span>
+                          </div>
+                          {/* Wishlist button */}
+                          <div
+                            className={`rounded-full text-center px-2 py-1 ${
+                              wishlist?.some((item) => item.id === product.id)
+                                ? "bg-gray-300"
+                                : "bg-transparent border border-gray-300"
+                            }`}
+                            onClick={(e) => whishlistbtn(product.id, e)}
+                          >
+                            {wishlist?.some(
+                              (item) => item.id === product.id
+                            ) ? (
+                              <i className="fas fa-heart text-rose-500"></i>
+                            ) : (
+                              <i className="far fa-heart text-gray-500"></i>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* open model */}
+            {isModalOpen && selectedProduct && <ProductsDetail />}
+          </div>
+        </section>
+      ) :(
+        <div>
       <div className="container mx-auto">
         {/* All products */}
         <Link to="/all">
@@ -100,9 +254,9 @@ const HomePage = () => {
           <img src={home6} alt="" />
         </div>
       </div>
-
-      {/* card */}
-      <div className="flex justify-center items-center py-20 text-4xl font-semibold">
+     
+     
+      <div className="flex justify-center items-center py-20 text-xl  sm:text-4xl font-semibold">
         <h1>Deal-icious Offers</h1>
       </div>
       <div class="container gap-3 mx-auto max-w flex w-full justify-center flex-wrap  sm:flex-wrap   overflow-hidden bg-white">
@@ -147,7 +301,7 @@ const HomePage = () => {
           </div>
         </Link>
       </div>
-      <div className="py-20 text-4xl text-center font-semibold">
+      <div className="py-20 text-xl sm:text-4xl text-center font-semibold">
         <h1>Blockbuster Offers</h1>
       </div>
       <div className=" mx-auto container">
@@ -189,6 +343,8 @@ const HomePage = () => {
       <div className="my-3">
         <img src={footerimg} alt="" className="w-full" />
       </div>
+      </div>
+      )}
     </>
   );
 };

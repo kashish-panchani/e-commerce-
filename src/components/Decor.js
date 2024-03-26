@@ -121,84 +121,88 @@ const Decor = () => {
           searchTerm={searchTerm}
           handleSearchChange={handleSearchChange}
         />
-        <div className="container mx-auto py-10">
-          <div className="flex flex-wrap -m-4">
-            {filteredSmartphones.map((product) => (
-              <div
-                key={product.id}
-                className="p-8 sm:p-2 xl:p-4 md:p-3  sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
-                onClick={() => openModal(product)}
-              >
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                <Link to="/ProductsDetail">
-                    <div
-                      className="h-64 overflow-hidden"
-                      onMouseEnter={() => {
-                        setIshover(true);
-                        setIsHoverSetProduct(product.id);
-                      }}
-                      onMouseLeave={() => setIshover(false)}
-                    >
-                      {isHoverSetProduct === product.id && isHover ? (
-                        <Slider {...settings}>
-                          {product.images.map((image, index) => (
-                            <div key={index} className="h-64">
-                              <img
-                                src={image}
-                                alt={`Product ${index}`}
-                                className="h-full w-full object-cover"
-                                onClick={() => selectThumbnail(image)}
-                              />
-                            </div>
-                          ))}
-                        </Slider>
-                      ) : (
-                        <img
-                          src={product.thumbnail}
-                          alt={product.title}
-                          className="h-full w-full object-cover"
-                        />
-                      )}
-                    </div>
-                    </Link>
-                    <div className="p-4">
-                      <h2 className="text-lg font-bold line-clamp-1 text-gray-800">
-                        {product.title}
-                      </h2>
-                      <p className="text-sm line-clamp-2 mt-2 text-gray-600">
-                        {product.description}
-                      </p>
-                      <div className="flex justify-between items-center mt-3">
-                        <p className="text-base font-bold text-gray-800">
-                          ₹
-                          {product.price -
-                            parseInt(
-                              (product.price * product.discountPercentage) / 100
-                            )}
-                        </p>
-                        {/* Wishlist button */}
-                        <div
-                          className={`rounded-full text-center px-2 py-1 ${
-                            wishlist?.some((item) => item.id === product.id)
-                              ? "bg-gray-300"
-                              : "bg-transparent border border-gray-300"
-                          }`}
-                          onClick={(e) => whishlistbtn(product.id, e)}
-                        >
-                          {wishlist?.some((item) => item.id === product.id) ? (
-                            <i className="fas fa-heart text-rose-500"></i>
-                          ) : (
-                            <i className="far fa-heart text-gray-500"></i>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-            
-                </div>
-              </div>
-            ))}
+       <div className="overflow-hidden sm:container sm:mx-auto py-10">
+  <div className="overflow-hidden grid grid-cols-2  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-4">
+    {filteredSmartphones.map((product) => (
+      <div
+        key={product.id}
+        className=" sm:p-0  bg-white sm:border sm:rounded-lg shadow-lg overflow-hidden"
+        onClick={() => openModal(product)}
+      >
+        <Link to="/ProductsDetail">
+          <div
+            className="h-64 overflow-hidden"
+            onMouseEnter={() => {
+              setIshover(true);
+              setIsHoverSetProduct(product.id);
+            }}
+            onMouseLeave={() => setIshover(false)}
+          >
+            {isHoverSetProduct === product.id && isHover ? (
+              <Slider {...settings}>
+                {product.images.map((image, index) => (
+                  <div key={index} className="h-64">
+                    <img
+                      src={image}
+                      alt={`Product ${index}`}
+                      className="h-full w-full object-cover"
+                      onClick={() => selectThumbnail(image)}
+                    />
+                  </div>
+                ))}
+              </Slider>
+            ) : (
+              <img
+                src={product.thumbnail}
+                alt={product.title}
+                className="h-full w-full object-cover"
+              />
+            )}
+          </div>
+        </Link>
+        <div className="p-2 sm:p-4">
+          <h2 className="text-xs  sm:text-base  font-bold line-clamp-1 text-gray-800">
+            {product.title}
+          </h2>
+          <p className="text-xs sm:text-sm line-clamp-1 md:line-clamp-2 mt-2 text-gray-600">
+            {product.description}
+          </p>
+          <div className="flex justify-between items-center sm:mt-3">
+            <p className="flex justify-center items-center text-xs sm:text-sm font-bold text-gray-800">
+              ₹
+              {product.price -
+                parseInt(
+                  (product.price * product.discountPercentage) / 100
+                )}
+                <p class="font-semibold text-[10px] mx-1 sm:text-sm sm:mx-2 line-through text-slate-900">
+                              ₹{product.price}
+                            </p>
+                            <p className="text-[9px] sm:text-xs leading-relaxed  text-orange-300">
+                              ({product.discountPercentage}% off)
+                            </p>
+            </p>
+           
+            {/* Wishlist button */}
+            <div
+              className={`sm:rounded-full text-center px-2 py-1 ${
+                wishlist?.some((item) => item.id === product.id)
+                  ? "sm:bg-gray-300"
+                  : "bg-transparent sm:border sm:border-gray-300"
+              }`}
+              onClick={(e) => whishlistbtn(product.id, e)}
+            >
+              {wishlist?.some((item) => item.id === product.id) ? (
+                <i className="fas fa-heart text-rose-500"></i>
+              ) : (
+                <i className="far fa-heart text-gray-500"></i>
+              )}
+            </div>
           </div>
         </div>
+      </div>
+    ))}
+  </div>
+</div>
       </>
     );
 }
