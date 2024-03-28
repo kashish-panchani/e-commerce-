@@ -41,7 +41,7 @@ const Smartphones = () => {
   }, []);
   useEffect(() => {
     const smartphones = products.filter(
-      (product) => product.category === "mens-watches"
+      (product) => product.category === "mens-shirts"
     );
     setFilteredSmartphones(smartphones);
   }, [products]);

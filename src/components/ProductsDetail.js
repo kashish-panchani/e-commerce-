@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Slider from "react-slick";
@@ -53,11 +53,9 @@ const ProductsDetail = () => {
     );
 
     setFilteredProducts(filtered);
-    // setCurrentPage(1);
   }, [searchTerm, products]);
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    // setCurrentPage(1);
   };
   const addToCart = () => {
     const isAlreadyInCart = cartItems.some(
@@ -68,18 +66,20 @@ const ProductsDetail = () => {
     if (!isAlreadyInCart && cartItems.length < maxQuantity) {
       setCartItems([...cartItems, productWithQuantity]);
       setCount(count + 1);
-      toast.success("Item added to cart successfully");
+      toast.success("Item added to cart successfully", {
+        style: {
+          width: "200px",
+          fontSize: "12px",
+          float: "right",
+          marginTop: "50px",
+        },
+      });
       localStorage.setItem(
         "cartItems",
         JSON.stringify([...cartItems, productWithQuantity])
       );
-    } else if (isAlreadyInCart) {
-      toast.error("This item is already in your cart.");
-    } else {
-      toast.error(
-        "You have reached the maximum quantity allowed in your cart."
-      );
     }
+ 
   };
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
@@ -97,7 +97,14 @@ const ProductsDetail = () => {
     setWishlist(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     toast[isInWishlist ? "error" : "success"](
-      isInWishlist ? "Removed from wishlist" : "Added to wishlist"
+      isInWishlist ? "Removed from wishlist" : "Added to wishlist", {
+        style: {
+          width: "200px",
+          fontSize: "12px",
+          float: "right",
+          marginTop: "50px",
+        },
+      }
     );
   };
   const selectThumbnail = (image) => {

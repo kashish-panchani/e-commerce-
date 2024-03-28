@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Header from "../Header";
+import Header from "./Header";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductsDetail from "./ProductsDetail";

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Header from "../Header";
+import Header from "./Header";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductsDetail from "./ProductsDetail";
@@ -77,14 +77,28 @@ const Bags = () => {
     if (isInWishlist) {
       const updatedWishlist = wishlist.filter((item) => item.id !== productId);
       setWishlist(updatedWishlist);
-      toast.error("Removed from wishlist");
+      toast.error("Removed from wishlist", {
+        style: {
+          width: "200px",
+          fontSize: "12px",
+          float: "right",
+          marginTop: "50px",
+        },
+      });
 
       localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     } else {
       const productToAdd = products.find((product) => product.id === productId);
       if (productToAdd) {
         setWishlist([...wishlist, productToAdd]);
-        toast.success("Added to wishlist");
+        toast.success("Added to wishlist", {
+          style: {
+            width: "200px",
+            fontSize: "12px",
+            float: "right",
+            marginTop: "50px",
+          },
+        });
         localStorage.setItem(
           "wishlist",
           JSON.stringify([...wishlist, productToAdd])

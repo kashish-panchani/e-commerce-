@@ -2,24 +2,26 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./components/Products";
 import Wishlist from "./components/Wishlist";
-import Login from "./Login";
+import Login from "./components/Login";
 import Cart from "./components/Cart";
 import ProductsDetail from "./components/ProductsDetail";
-import HomePage from "./HomePage";
+import HomePage from "./components/HomePage";
 import Smartphones from "./components/Smartphones";
 import Bags from "./components/Bags";
 import Sunglasses from "./components/Sunglasses";
 import Jewellery from "./components/Jewellery";
 import Laptops from "./components/Laptops";
 import Shoes from "./components/Shoes";
-import Mensshirt from "./Mensshirt";
-import Footer from "./Footer";
+import Mensshirt from "./components/Mensshirt";
+import Footer from "./components/Footer";
 import MenWatch from "./components/MenWatch";
 import Decor from "./components/Decor";
 import WomenWatch from "./components/WomenWatch";
 import WomenShoes from "./components/WomenShoes";
+import Logout from "./components/Logout";
 
 const App = () => {
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/home-decoration" exact element={<Decor />} />
         <Route path="/womens-watches" exact element={<WomenWatch />} />
         <Route path="/women's shoes" exact element={<WomenShoes />} />
+        <Route path="/logout" exact element={<Logout />} />
       </Routes>
 
       <Footer/>

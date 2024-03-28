@@ -36,6 +36,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
                 <Link to="/login">
                   <i class="fa-regular fa-user  "></i>
                 </Link>
+                
               </div>
 
               <Link
@@ -143,3 +144,4 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
 };
 
 export default Header;
+

@@ -1,20 +1,17 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Header from "./Header";
-// import banner from "./Images/heroimage.jpg";
-
-import firstpart from "./Images/firstpart.webp";
-import secondpart from "./Images/secondpar.webp";
-import home1 from "./Images/home1.webp";
-import home2 from "./Images/home2.webp";
-import home3 from "./Images/home3.webp";
-import home4 from "./Images/home5.webp";
-import home6 from "./Images/home6.webp";
-import footerimg from "./Images/footeimage.webp";
-import Footer from "./Footer";
+import firstpart from "../Images/firstpart.webp";
+import secondpart from "../Images/secondpar.webp";
+import home1 from "../Images/home1.webp";
+import home2 from "../Images/home2.webp";
+import home3 from "../Images/home3.webp";
+import home4 from "../Images/home5.webp";
+import home6 from "../Images/home6.webp";
+import footerimg from "../Images/footeimage.webp";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
-import ProductsDetail from "./components/ProductsDetail";
+import ProductsDetail from "./ProductsDetail";
 
 const HomePage = () => {
   const [count, setCount] = useState(0);
@@ -56,24 +53,7 @@ const HomePage = () => {
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
-  const addToCart = () => {
-    const isAlreadyInCart = cartItems?.some(
-      (item) => item.id === selectedProduct.id
-    );
-    const maxQuantity = 10;
-    const productWithQuantity = { ...selectedProduct, quantity: 1 };
-    if (cartItems.length < maxQuantity) {
-      setCartItems([...cartItems, productWithQuantity]);
-      setCount(count + 1);
-      setAddedToCart(true);
-      toast.success("Item added to cart successfully");
-    }
-    const updatedWishlist = wishlist.filter(
-      (item) => item.id !== selectedProduct.id
-    );
-    setWishlist(updatedWishlist);
-    localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
-  };
+
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
@@ -111,7 +91,14 @@ const HomePage = () => {
     setWishlist(updatedWishlist);
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     toast[isInWishlist ? "error" : "success"](
-      isInWishlist ? "Removed from wishlist" : "Added to wishlist"
+      isInWishlist ? "Removed from wishlist" : "Added to wishlist", {
+        style: {
+          width: "200px",
+          fontSize: "12px",
+          float: "right",
+          marginTop: "50px",
+        },
+      }
     );
   };
   return (
@@ -256,10 +243,10 @@ const HomePage = () => {
       </div>
      
      
-      <div className="flex justify-center items-center py-20 text-xl  sm:text-4xl font-semibold">
-        <h1>Deal-icious Offers</h1>
+      <div className="flex justify-center items-start py-10 text-sm  sm:text-2xl font-semibold">
+        <h1>MEDAL WORTHY BRANDS TO BAG</h1>
       </div>
-      <div class="container gap-3 mx-auto max-w flex w-full justify-center flex-wrap  sm:flex-wrap   overflow-hidden bg-white">
+      <div class="container gap-3 mx-auto max-w flex w-full justify-center items-center flex-wrap  sm:flex-wrap   overflow-hidden bg-white">
         <Link to="/mens-shoes">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
@@ -301,7 +288,7 @@ const HomePage = () => {
           </div>
         </Link>
       </div>
-      <div className="py-20 text-xl sm:text-4xl text-center font-semibold">
+      <div className="py-10 text-sm sm:text-2xl text-center font-semibold">
         <h1>Blockbuster Offers</h1>
       </div>
       <div className=" mx-auto container">

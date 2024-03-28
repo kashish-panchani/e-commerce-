@@ -1,16 +1,45 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Header2 from "../Header2";
-import Footer from "../Footer";
 import { Link } from "react-router-dom";
-import Header from "../Header";
+import Header from "./Header";
+import Slider from "react-slick";
+import ProductsDetail from "./ProductsDetail";
 const Cart = () => {
+  const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [itemToRemove, setItemToRemove] = useState(null);
   const [count, setCount] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [wishlist, setWishlist] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [isHover, setIshover] = useState(false);
+  const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`https://dummyjson.com/products?limit=0`);
+      const data = await response.json();
+      setProducts(data.products);
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    const filtered = products.filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchTerm, products]);
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
@@ -45,7 +74,14 @@ const Cart = () => {
   const handleRemove = () => {
     const updatedCartItems = cartItems.filter((item) => item !== itemToRemove);
     setCartItems(updatedCartItems);
-    toast.error("Product removed from cart");
+    toast.error("Product removed from cart", {
+      style: {
+        width: "200px",
+        fontSize: "12px",
+        float: "right",
+        marginTop: "50px",
+      },
+    });
     setItemToRemove(null);
   };
   const handleCancelRemove = () => {
@@ -59,25 +95,174 @@ const Cart = () => {
     localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
   console.log("cartitem::", cartItems);
+  const productmodal = (product) => {
+    openModal(product);
+    setSearchTerm("");
+  };
+  const selectThumbnail = (image) => {
+    setSelectedProduct((prevProduct) => ({
+      ...prevProduct,
+      thumbnail: image,
+    }));
+  };
+  const whishlistbtn = (productId, e) => {
+    e.stopPropagation();
+    const isInWishlist = wishlist?.some((item) => item.id === productId);
+    if (isInWishlist) {
+      const updatedWishlist = wishlist.filter((item) => item.id !== productId);
+      setWishlist(updatedWishlist);
+      toast.error("Removed from wishlist", {
+        style: {
+          width: "200px",
+          fontSize: "12px",
+          float: "right",
+          marginTop: "50px",
+        },
+      });
+
+      localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+    } else {
+      const productToAdd = products.find((product) => product.id === productId);
+      if (productToAdd) {
+        setWishlist([...wishlist, productToAdd]);
+        toast.success("Added to wishlist", {
+          style: {
+            width: "200px",
+            fontSize: "12px",
+            float: "right",
+            marginTop: "50px",
+          },
+        });
+        localStorage.setItem(
+          "wishlist",
+          JSON.stringify([...wishlist, productToAdd])
+        );
+      }
+    }
+  };
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
   return (
     <div>
       {/* <Header/> */}
-      <Header count={count} />
-      <div class="container mx-auto xl:p-10 lg:p-12 md:p-10 sm:p-12 ">
+      <Header count={count}  searchTerm={searchTerm}
+        handleSearchChange={handleSearchChange}  />
+      {filteredProducts && searchTerm ? (
+        <section className="py-10 px-5 sm:px-10">
+          <div className="container mx-auto py-10">
+            {searchTerm && filteredProducts.length === 0 ? (
+              <div className="text-center py-36  text-sm sm:text-2xl font-semibold">
+                No products found
+              </div>
+            ) : (
+              <div className="flex flex-wrap -m-4">
+                {filteredProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 "
+                    onClick={() => productmodal(product)}
+                  >
+                    <div className="bg-white hover:shadow-xl rounded-lg shadow-lg overflow-hidden">
+                      <Link to="/ProductsDetail">
+                        <div
+                          className="h-64 overflow-hidden"
+                          onMouseEnter={() => {
+                            setIshover(true);
+                            setIsHoverSetProduct(product.id);
+                          }}
+                          onMouseLeave={() => setIshover(false)}
+                        >
+                          {isHoverSetProduct === product.id && isHover ? (
+                            <Slider {...settings}>
+                              {product.images.map((image, index) => (
+                                <div key={index} className="h-64">
+                                  <img
+                                    src={image}
+                                    alt={`Product ${index}`}
+                                    className="h-full w-full object-cover"
+                                    onClick={() => selectThumbnail(image)}
+                                  />
+                                </div>
+                              ))}
+                            </Slider>
+                          ) : (
+                            <img
+                              src={product.thumbnail}
+                              alt={product.title}
+                              className="h-full w-full object-cover"
+                            />
+                          )}
+                        </div>
+                      </Link>
+                      <div className="p-4">
+                        <h2 className="text-lg font-bold line-clamp-1 text-gray-800">
+                          {product.title}
+                        </h2>
+                        <p className="text-xs line-clamp-1 mt-2 text-gray-600">
+                          {product.description}
+                        </p>
+                        <div className="flex  justify-between  mt-3">
+                          <div className="flex items-center">
+                            <span className="text-sm font-bold text-gray-800">
+                              ₹
+                              {product.price -
+                                parseInt(
+                                  (product.price * product.discountPercentage) /
+                                    100
+                                )}
+                            </span>
+                            <span class="font-semibold text-xs mx-2 line-through text-slate-900">
+                              ₹{product.price}
+                            </span>
+                            <span className="text-xs leading-relaxed font- text-red-500">
+                              ({product.discountPercentage}% off)
+                            </span>
+                          </div>
+                          {/* Wishlist button */}
+                          <div
+                            className={`rounded-full text-center px-2 py-1 ${
+                              wishlist?.some((item) => item.id === product.id)
+                                ? "bg-gray-300"
+                                : "bg-transparent border border-gray-300"
+                            }`}
+                            onClick={(e) => whishlistbtn(product.id, e)}
+                          >
+                            {wishlist?.some(
+                              (item) => item.id === product.id
+                            ) ? (
+                              <i className="fas fa-heart text-rose-500"></i>
+                            ) : (
+                              <i className="far fa-heart text-gray-500"></i>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {/* open model */}
+            {isModalOpen && selectedProduct && <ProductsDetail />}
+          </div>
+        </section>
+      ) : (
+      <div class="container mx-auto xl:p-10 lg:p-12 md:p-10 sm:p-10    ">
         {cartItems.length === 0 ? (
           <div className=" text-center px-6  ">
             <div className="flex justify-center items-center ">
-              <img src="../empty.svg" alt="" className="w-96 h-96" />
+              <img src="../empty.svg" alt="" className="w-44 h-44 sm:w-60 sm:h-60 md:w-80 md:h-80" />
             </div>
             <div>
-              <p className="font-bold text-2xl pb-2">Hey,it feels so light!</p>
-              <p className="text-base text-gray-400">
+              <p className="font-bold text-base sm:text-2xl pb-2">Hey,it feels so light!</p>
+              <p className="sm:text-base md:text-lg text-xs text-gray-400">
                 There is nothing in your cart.Let's add some items.{" "}
               </p>
             </div>
             <div>
               <Link to="/wishlist">
-                <button className="border border-blue-800  rounded-md py-5 px-3 text-sm  md:px-8 md:py-5 md:text-base xl:px-10 xl:text-lg xl:py-4 m-10 text-blue-600 font-bold">
+                <button className="border border-blue-800  rounded-md py-3 px-3 text-[10px] sm:text-sm sm:px-6  sm:py-5 md:px-8 md:py-5 md:text-xl xl:px-10 xl:text-lg xl:py-4 m-10 text-blue-600 font-bold">
                   ADD ITEMS FROM WISHLIST
                 </button>
               </Link>
@@ -157,7 +342,7 @@ const Cart = () => {
                               className="text-[13px] xl:text-xl lg:text-base md:text-sm sm:text-[13px]"
                               onClick={() => {
                                 cartClose(item);
-                                // toast.error("Product removed from cart");
+                               
                               }}
                             >
                               <i class="fa-solid fa-xmark "></i>
@@ -212,14 +397,14 @@ const Cart = () => {
                   </p>
                   {itemToRemove && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                      <div className="bg-white p-6 w-80 text-gray-500 rounded-lg shadow-lg">
+                      <div className="bg-white p-3 sm:p-6 w-60 sm:w-80 text-gray-500 rounded-lg shadow-lg">
                       
-                        <p className="text-sm font- mb-4">
+                        <p className="text-xs sm:text-base font- mb-4">
                           Are you sure you want to remove this item from the
                           cart?
                         </p>
                         <hr />
-                        <div className="flex justify-between items-center mx-8 mt-2 font-semibold">
+                        <div className="flex justify-between items-center text-[11px] sm:text-base mx-8 mt-2 font-semibold">
                           <button
                             className=" text-rose-500  rounded-lg "
                             onClick={handleRemove}
@@ -242,6 +427,7 @@ const Cart = () => {
           </>
         )}
       </div>
+      )}
     </div>
   );
 };
