@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import imagelogin from "../Images/login.png"
 const PleaseLogin  = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div className="flex flex-col items-center justify-center py-10 sm:py-32">
           <h1 className="sm:text-xl font-bold mb-4">PLEASE LOG IN</h1>
           <p className="text-gray-400 sm:text-lg  text-xs ">
           Login to view items in your wishlist.
