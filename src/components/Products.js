@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import { settings } from "../Constants";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,19 +19,19 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [isHover, setIshover] = useState(false);
-  const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
+  const [isHover,   setIshover] = useState(false);
+  const [isHoverSetProduct, setIsHoverSetProduct] = useState(null);
   console.log("products::::", products);
   const settings = {
     dots: true,
     infinite: true,
     speed: 300,
-    autoplay: true,
+    autoplay: isHover, // Set autoplay based on hover state
     autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
+  const setIsHover = (value) => setIshover(value);
   const perPage = 30;
   console.log("selectedProduct", selectedProduct);
   useEffect(() => {
@@ -170,44 +171,44 @@ const Products = () => {
                   onClick={() => openModal(product)}
                 >
                   <div
-                    className="h-64   overflow-hidden"
-                    onMouseEnter={() => {
-                      setIshover(true);
-                      setIsHoverSetProduct(product.id);
-                    }}
-                    onMouseLeave={() => setIshover(false)}
-                  >
-                    {isHoverSetProduct === product.id && isHover ? (
-                      <Link to="/ProductsDetail">
-                        <Slider {...settings}>
-                          {product.images.map((image, index) => (
-                            <div key={index} className="h-[232px]">
-                              <img
-                                src={image}
-                                alt={`Product ${index}`}
-                                className="h-full w-full object-cover"
-                                onClick={() => selectThumbnail(image)}
-                              />
-                            </div>
-                          ))}
-                        </Slider>
-                      </Link>
-                    ) : (
-                      <img
-                        src={product.thumbnail}
-                        alt={product.title}
-                        className=" h-60 w-full object-cover  sm:h-full sm:w-full sm:object-cover"
-                      />
-                    )}
-                  </div>
+      className="h-64 overflow-hidden"
+      onMouseEnter={() => {
+        setIshover(true);
+        setIsHoverSetProduct(product.id);
+      }}
+      onMouseLeave={() => setIshover(false)}
+    >
+      {isHoverSetProduct === product.id && isHover ? (
+        <Slider {...settings}>
+          {product.images.map((image, index) => (
+            <div key={index} className="h-[232px]">
+              <img
+                src={image}
+                alt={`Product ${index}`}
+                className="h-full w-full object-cover"
+                onClick={() => selectThumbnail(image)}
+              />
+            </div>
+          ))}
+        </Slider>
+      ) : (
+        <img
+          src={product.thumbnail}
+          alt={product.title}
+          className="h-full w-full object-cover"
+        />
+      )}
+    </div>
 
                   <div className="p-4">
+                  <Link to="/ProductsDetail">
                     <h2 className="text-xs sm:text-lg font-bold line-clamp-1 text-gray-800">
                       {product.title}
                     </h2>
                     <p className="text-[10px]  sm:text-xs line-clamp-1 mt-2 text-gray-600">
                       {product.description}
                     </p>
+                    </Link>
                     <div className="flex justify-between mt-2">
                       <div className="flex items-center">
                         <span className=" text-[10px] sm:text-sm font-bold text-gray-800">

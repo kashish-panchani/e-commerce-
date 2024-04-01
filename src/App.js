@@ -19,11 +19,13 @@ import Decor from "./components/Decor";
 import WomenWatch from "./components/WomenWatch";
 import WomenShoes from "./components/WomenShoes";
 import Logout from "./components/Logout";
+import ErrorPage from "./components/ErrorPage"
 
 const App = () => {
   
   return (
     <BrowserRouter>
+    
       <Routes>
       <Route path="/" exact element={<HomePage />} />
         <Route path="/all" exact element={<Products />} />
@@ -43,6 +45,7 @@ const App = () => {
         <Route path="/womens-watches" exact element={<WomenWatch />} />
         <Route path="/women's shoes" exact element={<WomenShoes />} />
         <Route path="/logout" exact element={<Logout />} />
+        <Route path="/*" exact element={<ErrorPage />} />
       </Routes>
 
       <Footer/>

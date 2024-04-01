@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import FilterProducts from "./FilterProducts ";
+import SearchFilterProducts from "./SearchFilterProducts";
 
 const Header = ({ count, searchTerm, handleSearchChange }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
             />
           </Link>
           <div className="flex justify-center items-center sm:flex sm:justify-center sm:items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <FilterProducts
+            <SearchFilterProducts
               searchTerm={searchTerm}
               handleSearchChange={handleSearchChange}
             />
@@ -36,7 +36,6 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
                 <Link to="/login">
                   <i class="fa-regular fa-user  "></i>
                 </Link>
-                
               </div>
 
               <Link
@@ -61,7 +60,6 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               aria-controls="navbar-sticky"
               aria-expanded={isMobileMenuOpen}
             >
-              <span className="sr-only">Open main menu</span>
               <svg
                 className="w-5 h-5"
                 aria-hidden="true"
@@ -144,4 +142,3 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
 };
 
 export default Header;
-
