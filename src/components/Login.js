@@ -17,7 +17,6 @@ const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("isLoggedIn") === "true"
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [addedToCart, setAddedToCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");

@@ -6,32 +6,28 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import { settings } from "../Constants";
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [count, setCount] = useState(0);
-  const [addedToCart, setAddedToCart] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [isHover,   setIshover] = useState(false);
+  const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(null);
-  console.log("products::::", products);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 300,
-    autoplay: isHover, // Set autoplay based on hover state
+    autoplay: isHover,
     autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  const setIsHover = (value) => setIshover(value);
   const perPage = 30;
   console.log("selectedProduct", selectedProduct);
   useEffect(() => {
@@ -88,12 +84,9 @@ const Products = () => {
     setSearchTerm(e.target.value);
     setCurrentPage(1);
   };
-  console.log("ishover", isHover);
+
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
-    setIsModalOpen(true);
-    const isInCart = cartItems?.some((item) => item.id === product.id);
-    setAddedToCart(isInCart);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
   });
 
@@ -102,10 +95,6 @@ const Products = () => {
       ...prevProduct,
       thumbnail: image,
     }));
-  };
-
-  const toggleCartModal = () => {
-    setIsCartModalOpen(true);
   };
 
   const whishlistbtn = (productId, e) => {
@@ -151,7 +140,6 @@ const Products = () => {
     <div className="bg-gray-100 overflow-hidden min-h-screen">
       <Header
         count={count}
-        toggleCartModal={toggleCartModal}
         searchTerm={searchTerm}
         handleSearchChange={handleSearchChange}
       />
@@ -171,43 +159,43 @@ const Products = () => {
                   onClick={() => openModal(product)}
                 >
                   <div
-      className="h-64 overflow-hidden"
-      onMouseEnter={() => {
-        setIshover(true);
-        setIsHoverSetProduct(product.id);
-      }}
-      onMouseLeave={() => setIshover(false)}
-    >
-      {isHoverSetProduct === product.id && isHover ? (
-        <Slider {...settings}>
-          {product.images.map((image, index) => (
-            <div key={index} className="h-[232px]">
-              <img
-                src={image}
-                alt={`Product ${index}`}
-                className="h-full w-full object-cover"
-                onClick={() => selectThumbnail(image)}
-              />
-            </div>
-          ))}
-        </Slider>
-      ) : (
-        <img
-          src={product.thumbnail}
-          alt={product.title}
-          className="h-full w-full object-cover"
-        />
-      )}
-    </div>
+                    className="h-64 overflow-hidden"
+                    onMouseEnter={() => {
+                      setIshover(true);
+                      setIsHoverSetProduct(product.id);
+                    }}
+                    onMouseLeave={() => setIshover(false)}
+                  >
+                    {isHoverSetProduct === product.id && isHover ? (
+                      <Slider {...settings}>
+                        {product.images.map((image, index) => (
+                          <div key={index} className="h-[232px]">
+                            <img
+                              src={image}
+                              alt={`Product ${index}`}
+                              className="h-full w-full object-cover"
+                              onClick={() => selectThumbnail(image)}
+                            />
+                          </div>
+                        ))}
+                      </Slider>
+                    ) : (
+                      <img
+                        src={product.thumbnail}
+                        alt={product.title}
+                        className="h-full w-full object-cover"
+                      />
+                    )}
+                  </div>
 
                   <div className="p-4">
-                  <Link to="/ProductsDetail">
-                    <h2 className="text-xs sm:text-lg font-bold line-clamp-1 text-gray-800">
-                      {product.title}
-                    </h2>
-                    <p className="text-[10px]  sm:text-xs line-clamp-1 mt-2 text-gray-600">
-                      {product.description}
-                    </p>
+                    <Link to="/ProductsDetail">
+                      <h2 className="text-xs sm:text-lg font-bold line-clamp-1 text-gray-800">
+                        {product.title}
+                      </h2>
+                      <p className="text-[10px]  sm:text-xs line-clamp-1 mt-2 text-gray-600">
+                        {product.description}
+                      </p>
                     </Link>
                     <div className="flex justify-between mt-2">
                       <div className="flex items-center">

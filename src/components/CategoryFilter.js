@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Header from "./Header";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import ProductsDetail from "./ProductsDetail";
-import { productmodal, settings } from "../Constants";
 import ProductItems from "./ProductItems";
+import { productmodal, settings } from "../Constants";
+import Slider from "react-slick";
+import { Link, useParams } from "react-router-dom";
 
-const WomenShoes = () => {
+const CategoryFilter = () => {
+  const { type } = useParams();
+
   const [products, setProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [addedToCart, setAddedToCart] = useState(false);
@@ -18,11 +19,7 @@ const WomenShoes = () => {
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [count, setCount] = useState(0);
-  const [filterSunglasses, setfilterWomensShoes] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log("products:>", products);
- 
+  const [filterCategory, setfilterCategory] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,11 +30,12 @@ const WomenShoes = () => {
     fetchData();
   }, []);
   useEffect(() => {
-    const womensShoes = products.filter(
-      (product) => product.category === "womens-shoes"
-    );
-    setfilterWomensShoes(womensShoes);
-  }, [products]);
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
+    const womenWactch = products.filter((product) => product.category === type);
+    setfilterCategory(womenWactch);
+  }, [products, type]);
   useEffect(() => {
     const savedCartItems = localStorage.getItem("cartItems");
     if (savedCartItems) {
@@ -63,7 +61,6 @@ const WomenShoes = () => {
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
-    console.log("storedWishlist", storedWishlist);
   }, []);
   const whishlistbtn = (productId, e) => {
     e.stopPropagation();
@@ -101,13 +98,10 @@ const WomenShoes = () => {
     }
   };
 
-  const openModal = useCallback((product) => {
+  const openModal = (product) => {
     setSelectedProduct(product);
-
-    const isInCart = cartItems?.some((item) => item.id === product.id);
-    setAddedToCart(isInCart);
     localStorage.setItem("selectedProduct", JSON.stringify(product));
-  });
+  };
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -147,13 +141,12 @@ const WomenShoes = () => {
                 setSearchTerm={setSearchTerm}
               />
             )}
-         
           </div>
         </section>
       ) : (
         <div className="overflow-hidden sm:container sm:mx-auto py-10">
           <div className="overflow-hidden grid grid-cols-2  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 sm:gap-4">
-            {filterSunglasses.map((product) => (
+            {filterCategory.map((product) => (
               <div
                 key={product.id}
                 className=" sm:p-0  bg-white sm:border sm:rounded-lg shadow-lg overflow-hidden"
@@ -239,4 +232,4 @@ const WomenShoes = () => {
   );
 };
 
-export default WomenShoes;
+export default CategoryFilter;

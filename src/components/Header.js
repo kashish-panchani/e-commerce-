@@ -18,7 +18,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
-          >
+          > 
             <img
               src="../myntralogo.png"
               className="h-8  xl:h-14 lg:h-[40px] md:h-[32px] sm:h-[40px]"
@@ -34,7 +34,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
             <div className="flex text-[12px] xl:text-xl  lg:text-[16px]  md:text-[12px] sm:text-[17px]">
               <div>
                 <Link to="/login">
-                  <i class="fa-regular fa-user  "></i>
+                  <i class="fa-regular fa-user"></i>
                 </Link>
               </div>
 
@@ -95,7 +95,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               </li>
               <li>
                 <Link
-                  to="/smartphones"
+                  to="/CategoryFilter/smartphones"
                   className="block py-2 px-3  text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   SMARTPHONES{" "}
@@ -103,7 +103,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               </li>
               <li>
                 <Link
-                  to="/bags"
+                  to="/CategoryFilter/womens-bags"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   BAG
@@ -111,7 +111,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               </li>
               <li>
                 <Link
-                  to="/sunglasses"
+                  to="/CategoryFilter/sunglasses"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   SUNGLASSES
@@ -119,7 +119,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               </li>{" "}
               <li>
                 <Link
-                  to="/jewellery"
+                  to="/CategoryFilter/womens-jewellery"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   JEWELLERY
@@ -127,7 +127,7 @@ const Header = ({ count, searchTerm, handleSearchChange }) => {
               </li>{" "}
               <li>
                 <Link
-                  to="/laptop"
+                  to="/CategoryFilter/laptops"
                   className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   LAPTOP

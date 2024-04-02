@@ -10,8 +10,6 @@ import home6 from "../Images/home6.webp";
 import footerimg from "../Images/footeimage.webp";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import ProductsDetail from "./ProductsDetail";
 import { productmodal, settings } from "../Constants";
 import ProductItems from "./ProductItems";
 
@@ -165,7 +163,7 @@ const HomePage = () => {
         <h1>MEDAL WORTHY BRANDS TO BAG</h1>
       </div>
       <div class="container gap-3 mx-auto max-w flex w-full justify-center items-center flex-wrap  sm:flex-wrap   overflow-hidden bg-white">
-        <Link to="/mens-shoes">
+        <Link to="/CategoryFilter/mens-shoes">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
               src="https://assets.tatacliq.com/medias/sys_master/images/49792073334814.jpg"
@@ -173,7 +171,7 @@ const HomePage = () => {
             />
           </div>
         </Link>
-        <Link to="/bags">
+        <Link to="/CategoryFilter/womens-bags">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
               src="https://assets.tatacliq.com/medias/sys_master/images/49733324931102.jpg"
@@ -181,7 +179,7 @@ const HomePage = () => {
             />
           </div>
         </Link>
-        <Link to="/mens-shirts">
+        <Link to="/CategoryFilter/mens-shirts">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
               src="https://assets.tatacliq.com/medias/sys_master/images/49739179622430.jpg"
@@ -189,7 +187,7 @@ const HomePage = () => {
             />
           </div>
         </Link>
-        <Link to="/mens-watches">
+        <Link to="/CategoryFilter/mens-watches">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
               src="https://assets.tatacliq.com/medias/sys_master/images/49792074317854.jpg"
@@ -197,7 +195,7 @@ const HomePage = () => {
             />
           </div>
         </Link>
-        <Link to="/home-decoration">
+        <Link to="/CategoryFilter/home-decoration">
           <div class="flex pr-2 h-80 object-cover overflow-hidden">
             <img
               src="https://assets.tatacliq.com/medias/sys_master/images/49792074711070.jpg"
@@ -211,7 +209,7 @@ const HomePage = () => {
       </div>
       <div className=" mx-auto container">
         <div className="gap-5 flex justify-center items-center flex-wrap   bg-white">
-          <Link to="/bags">
+          <Link to="/CategoryFilter/womens-bags">
             <div class="flex  h-3/4  object-cover ">
               <img
                 src="https://assets.tatacliq.com/medias/sys_master/images/49739180343326.jpg"
@@ -219,7 +217,7 @@ const HomePage = () => {
               />
             </div>
           </Link>
-          <Link to="/womens-watches">
+          <Link to="/CategoryFilter/womens-watches">
             <div class="flex  h-3/4  object-cover">
               <img
                 src="https://assets.tatacliq.com/medias/sys_master/images/49739180408862.jpg"
@@ -227,7 +225,7 @@ const HomePage = () => {
               />
             </div>
           </Link>
-          <Link to="/sunglasses">
+          <Link to="/CategoryFilter/sunglasses">
             <div class="flex  h-3/4  object-cover">
               <img
                 src="https://assets.tatacliq.com/medias/sys_master/images/49739180605470.jpg"
@@ -235,7 +233,7 @@ const HomePage = () => {
               />
             </div>
           </Link>
-          <Link to="/women's shoes">
+          <Link to="/CategoryFilter/womens-shoes">
             <div class="flex  h-3/4  object-cover">
               <img
                 src="https://assets.tatacliq.com/medias/sys_master/images/49739180736542.jpg"
@@ -255,97 +253,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-{
-  /* <div className=" flex justify-center relative ">
-<div className="w-full  ">
-  <img src={banner} alt="" className=" w-full" />
-</div>
-<div className="container mx-auto absolute py-80 w-96  left-28">
-  <p className="bghead   text-5xl text-white ">
-    Every purchase will be mad e with pleasure.
-  </p>
-  <p className="bghead flex text-xl my-5 text-white  ">
-    We work with global brands and have created an application for you
-    to do your shopping.
-  </p>
-  <div className="container mx-auto py-3 flex justify-center items-center w-screen  bg-white mt-32">
-    <p className="mr-10 ">
-      You are on myntra.com.You can also shop on myntra india for
-      millions of products with fast local delivery.{" "}
-      <a href="https://www.myntra.com/online-fashion-store">
-        Click here to go to myntra.in
-      </a>
-    </p>
-  </div>
-</div>
-</div> */
-}
-// ------------
-// <div class="flex w-full  flex-wrap overflow-hidden bg-white">
-// {products.map((product) => (
-//   <div key={product.id}>
-//   <a class="relative flex h-80 w-72 overflow-hidden" href="#">
-//   <img
-//                       alt={product.title}
-//                       className="object-contain object-center"
-//                       src={product.thumbnail}
-//                     />
-
-//     <div class="absolute -right-16 bottom-0 mr-2 mb-4 space-y-2 transition-all duration-300 group-hover:right-0"></div>
-//   </a>
-//   <div class="mt-4 pb-5">
-//     <a href="#">
-//       {/* <h5 class="text-center tracking-tight text-gray-500">
-//         Piped Linen Blend Blazer
-//       </h5> */}
-
-//     </a>
-//     <div class="flex justify-center">
-//       <p>
-//       {product.category==="smartphones"}
-//         <span class="text-sm font-bold text-gray-900">{product.category}</span>
-//         <span class="text-sm text-gray-400 line-through">$499</span>
-//       </p>
-//       </div>
-
-//     </div>
-//   </div>
-
-// ))}
-// </div>
-
-// =============
-// <div>
-//         {/* All products */}
-//         <div className="">
-//           <div className=" flex justify-center items-center">
-//             <img src={firstimage} alt="" className="w-full h-full" />
-//           </div>
-//           <div className="flex justify-center items-center ">
-//             <div>
-//               <img src={firstpart} alt="" className="" />
-//             </div>
-//             <div>
-//               <img src={secondpart} alt="" className="w-full" />
-//             </div>
-//           </div>
-//           <div>
-//             <img src={home1} alt="" className="w-full" />
-//           </div>
-//           <div>
-//             <img src={home2} alt="" className="w-full" />
-//           </div>
-
-//           <div className="flex">
-//             <div>
-//               <img src={home3} alt="" className="" />
-//             </div>
-//             <div>
-//               <img src={home4} alt="" className="" />
-//             </div>
-//           </div>
-//           <div>
-//             <img src={home6} alt="" />
-//           </div>
-//         </div>
-//       </div>

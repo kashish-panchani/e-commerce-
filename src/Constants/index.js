@@ -12,9 +12,4 @@ export const productmodal = (product, openModal, setSearchTerm) => {
   openModal(product);
   setSearchTerm("");
 };
-export const openModal = (product,setSelectedProduct,cartItems,setAddedToCart) => {
-  setSelectedProduct(product);
-  const isInCart = cartItems?.some((item) => item.id === product.id);
-  setAddedToCart(isInCart);
-  localStorage.setItem("selectedProduct", JSON.stringify(product));
-};
+

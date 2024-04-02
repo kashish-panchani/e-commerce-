@@ -17,9 +17,9 @@ function Footer() {
           <div className=" w-[28%] xl:text-xl lg:w-1/3 text-[8px] md:text-sm lg:text-lg sm:text-sm sm:w-1/4 lg:text-left mb-4 lg:mb-0">
             <h4 className="xl:text-xl lg:text-lg text-[7px] sm:text-xs  md:text-sm font-bold mb-4">CONNECT WITH US</h4>
             <ul>
-              <li>Facebook</li>
-              <li>Twitter</li>
-              <li>Instagram</li>
+              <a href="https://www.facebook.com/"><li>Facebook</li></a>
+              <a href="https://twitter.com/?lang=en"><li>Twitter</li></a>
+             <a href="https://www.instagram.com/"><li>Instagram</li></a> 
             </ul>
           </div>
           <div className=" w-[28%] xl:text-xl lg:w-1/3 text-[8px] md:text-sm lg:text-lg sm:text-sm  sm:w-1/4 lg:text-left">

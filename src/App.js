@@ -6,51 +6,33 @@ import Login from "./components/Login";
 import Cart from "./components/Cart";
 import ProductsDetail from "./components/ProductsDetail";
 import HomePage from "./components/HomePage";
-import Smartphones from "./components/Smartphones";
-import Bags from "./components/Bags";
-import Sunglasses from "./components/Sunglasses";
-import Jewellery from "./components/Jewellery";
-import Laptops from "./components/Laptops";
-import Shoes from "./components/Shoes";
-import Mensshirt from "./components/Mensshirt";
 import Footer from "./components/Footer";
-import MenWatch from "./components/MenWatch";
-import Decor from "./components/Decor";
-import WomenWatch from "./components/WomenWatch";
-import WomenShoes from "./components/WomenShoes";
 import Logout from "./components/Logout";
-import ErrorPage from "./components/ErrorPage"
+import ErrorPage from "./components/ErrorPage";
+import CategoryFilter from "./components/CategoryFilter";
 
 const App = () => {
-  
   return (
     <BrowserRouter>
-    
+      {/* <Header/> */}
       <Routes>
-      <Route path="/" exact element={<HomePage />} />
+        <Route path="/" exact element={<HomePage />} />
         <Route path="/all" exact element={<Products />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/cart" exact element={<Cart />} />
         <Route path="/wishlist" exact element={<Wishlist />} />
         <Route path="/ProductsDetail" exact element={<ProductsDetail />} />
-        <Route path="/smartphones" exact element={<Smartphones />} />
-        <Route path="/bags" exact element={<Bags />} />
-        <Route path="/sunglasses" exact element={<Sunglasses />} />
-        <Route path="/jewellery" exact element={<Jewellery />} />
-        <Route path="/laptop" exact element={<Laptops />} />
-        <Route path="/mens-shoes" exact element={<Shoes />} />
-        <Route path="/mens-shirts" exact element={<Mensshirt />} />
-        <Route path="/mens-watches" exact element={<MenWatch />} />
-        <Route path="/home-decoration" exact element={<Decor />} />
-        <Route path="/womens-watches" exact element={<WomenWatch />} />
-        <Route path="/women's shoes" exact element={<WomenShoes />} />
         <Route path="/logout" exact element={<Logout />} />
+        <Route
+          path="/CategoryFilter/:type"
+          exact
+          element={<CategoryFilter />}
+        />
         <Route path="/*" exact element={<ErrorPage />} />
       </Routes>
 
-      <Footer/>
+      <Footer />
     </BrowserRouter>
-  
   );
 };
 
