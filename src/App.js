@@ -7,14 +7,15 @@ import Cart from "./components/Cart";
 import ProductsDetail from "./components/ProductsDetail";
 import HomePage from "./components/HomePage";
 import Footer from "./components/Footer";
-import Logout from "./components/Logout";
 import ErrorPage from "./components/ErrorPage";
 import CategoryFilter from "./components/CategoryFilter";
+import Header from "./components/Header";
+import SearchProduct from "./components/SearchProduct";
 
 const App = () => {
   return (
     <BrowserRouter>
-      {/* <Header/> */}
+      <Header />
       <Routes>
         <Route path="/" exact element={<HomePage />} />
         <Route path="/all" exact element={<Products />} />
@@ -22,13 +23,18 @@ const App = () => {
         <Route path="/cart" exact element={<Cart />} />
         <Route path="/wishlist" exact element={<Wishlist />} />
         <Route path="/ProductsDetail" exact element={<ProductsDetail />} />
-        <Route path="/logout" exact element={<Logout />} />
+
         <Route
           path="/CategoryFilter/:type"
           exact
           element={<CategoryFilter />}
         />
         <Route path="/*" exact element={<ErrorPage />} />
+        <Route
+          path="/SearchProduct/:searchTerm"
+          exact
+          element={<SearchProduct />}
+        />
       </Routes>
 
       <Footer />

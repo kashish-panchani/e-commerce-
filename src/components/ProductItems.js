@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import { productmodal, settings } from "../Constants";
@@ -17,8 +17,11 @@ const ProductItems = (props) => {
     whishlistbtn,
   } = props;
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
-    <div className="flex flex-wrap -m-4">
+    <div className="flex flex-wrap -m-4 pt-10">
       {filteredProducts.map((product) => (
         <div
           key={product.id}

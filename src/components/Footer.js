@@ -1,6 +1,7 @@
 import React from "react";
 
 function Footer() {
+
   return (
     <footer className="bg-gray-200 text-gray-600" >
       <div className="container mx-auto pt-2 sm:py-8 px-4 ">

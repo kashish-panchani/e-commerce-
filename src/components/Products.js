@@ -6,30 +6,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import { settings } from "../Constants";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
-  const [count, setCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [isHover, setIshover] = useState(false);
   const [isHoverSetProduct, setIsHoverSetProduct] = useState(null);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    autoplay: isHover,
-    autoplaySpeed: 2000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
   const perPage = 30;
-  console.log("selectedProduct", selectedProduct);
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`https://dummyjson.com/products?limit=0`);
@@ -38,37 +26,16 @@ const Products = () => {
     };
     fetchData();
   }, []);
-  useEffect(() => {
-    const savedCartItems = localStorage.getItem("cartItems");
-    if (savedCartItems) {
-      const parsedCartItems = JSON.parse(savedCartItems);
-      setCartItems(parsedCartItems);
-      setCount(parsedCartItems.length);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    setCount(cartItems.length);
-  }, [cartItems]);
 
   useEffect(() => {
     const storedWishlist = localStorage.getItem("wishlist");
     if (storedWishlist) {
       setWishlist(JSON.parse(storedWishlist));
     }
-    console.log("storedWishlist", storedWishlist);
   }, []);
 
   const totalPages = Math.ceil(products.length / perPage);
-  useEffect(() => {
-    const filtered = products.filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
 
-    setFilteredProducts(filtered);
-    setCurrentPage(1);
-  }, [searchTerm, products]);
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -80,10 +47,7 @@ const Products = () => {
       setCurrentPage(currentPage - 1);
     }
   };
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  
 
   const openModal = useCallback((product) => {
     setSelectedProduct(product);
@@ -135,24 +99,20 @@ const Products = () => {
 
   const startIndex = (currentPage - 1) * perPage;
   const endIndex = currentPage * perPage;
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-gray-100 overflow-hidden min-h-screen">
-      <Header
-        count={count}
-        searchTerm={searchTerm}
-        handleSearchChange={handleSearchChange}
-      />
+     
 
-      <section className="py-0  sm:px-10">
-        <div className="container mx-auto sm:py-10">
-          {searchTerm && filteredProducts.length === 0 ? (
-            <div className="text-center pt-52 text-2xl font-semibold">
-              No products found
-            </div>
-          ) : (
+      <section className="py-0   sm:px-10">
+        <div className="container mx-auto sm:pt-24 pt-16">
+        
+          
+          
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-4 lg:gap-4 md:gap-4 sm:gap-2 ">
-              {filteredProducts.slice(startIndex, endIndex).map((product) => (
+              {products.slice(startIndex, endIndex).map((product) => (
                 <div
                   key={product.id}
                   className="bg-white sm:rounded-lg hover:shadow-xl  shadow-lg overflow-hidden"
@@ -233,7 +193,7 @@ const Products = () => {
                 </div>
               ))}
             </div>
-          )}
+         
         </div>
       </section>
 

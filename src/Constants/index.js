@@ -8,8 +8,7 @@ export const settings = {
   slidesToScroll: 1,
 };
 
-export const productmodal = (product, openModal, setSearchTerm) => {
+export const productmodal = (product, openModal) => {
   openModal(product);
-  setSearchTerm("");
-};
 
+};
