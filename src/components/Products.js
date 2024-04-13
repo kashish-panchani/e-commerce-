@@ -119,7 +119,7 @@ const Products = () => {
                   onClick={() => openModal(product)}
                 >
                   <div
-                    className="h-64 overflow-hidden"
+                    className="h-64  overflow-hidden"
                     onMouseEnter={() => {
                       setIshover(true);
                       setIsHoverSetProduct(product.id);
@@ -133,7 +133,7 @@ const Products = () => {
                             <img
                               src={image}
                               alt={`Product ${index}`}
-                              className="h-full w-full object-cover"
+                              className="h-full w-full object-cover sm:object-contain"
                               onClick={() => selectThumbnail(image)}
                             />
                           </div>
@@ -143,13 +143,13 @@ const Products = () => {
                       <img
                         src={product.thumbnail}
                         alt={product.title}
-                        className="h-full w-full object-cover"
+                        className="h-[90%] sm:h-full sm:w-full object-cover sm:object-contain"
                       />
                     )}
                   </div>
 
                   <div className="p-4">
-                    <Link to="/ProductsDetail">
+                     <Link to={`/ProductsDetail/${product.id}`}>
                       <h2 className="text-xs sm:text-lg font-bold line-clamp-1 text-gray-800">
                         {product.title}
                       </h2>
@@ -201,7 +201,7 @@ const Products = () => {
         <div className="flex justify-center py-12">
           <button
             onClick={handlePrevPage}
-            className={`mx-2 px-5 py-3 text-lg border rounded-full ${
+            className={`mx-2 px-3 py-2  text-xs border rounded-full ${
               currentPage === 1
                 ? "bg-gray-300 cursor-not-allowed text-gray-500"
                 : "bg-blue-500 text-white"
@@ -210,10 +210,10 @@ const Products = () => {
           >
             <i class="fa-solid fa-angle-left "></i>
           </button>
-          <span className="pt-2 text-2xl ">page {currentPage} </span>
+          <span className="pt-2 text-xs ">page {currentPage} </span>
           <button
             onClick={handleNextPage}
-            className={`mx-2 px-5 text-lg py-3 border rounded-full
+            className={`mx-2 px-3 py-2  text-xs border rounded-full
                       ${
                         currentPage === totalPages
                           ? "bg-gray-300 cursor-not-allowed text-gray-500"

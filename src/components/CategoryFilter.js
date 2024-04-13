@@ -110,7 +110,7 @@ const CategoryFilter = () => {
                         <img
                           src={image}
                           alt={`Product ${index}`}
-                          className="h-full w-full object-cover"
+                          className="h-full w-full onject-cover sm:object-contain"
                           onClick={() => selectThumbnail(image)}
                         />
                       </div>
@@ -120,13 +120,13 @@ const CategoryFilter = () => {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    className="h-full w-full object-cover"
+                    className="h-[90%] sm:h-full sm:w-full onject-cover sm:object-contain"
                   />
                 )}
               </div>
 
               <div className="p-2 sm:p-4">
-                <Link to="/ProductsDetail">
+                 <Link to={`/ProductsDetail/${product.id}`}>
                   <h2 className="text-xs  sm:text-base  font-bold line-clamp-1 text-gray-800">
                     {product.title}
                   </h2>

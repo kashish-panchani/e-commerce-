@@ -27,9 +27,8 @@ const SearchProduct = () => {
     );
 
     setFilteredProducts(filtered);
-   
-  }, [searchTerm,products]);
-  console.log("searchterm",searchTerm);
+  }, [searchTerm, products]);
+
   const whishlistbtn = (productId, e) => {
     e.stopPropagation();
     const isInWishlist = wishlist?.some((item) => item.id === productId);
@@ -77,34 +76,30 @@ const SearchProduct = () => {
       thumbnail: image,
     }));
   };
-  console.log("filteredProducts", filteredProducts);
   return (
     <div>
-      
-        <section className="py-10 px-5 sm:px-10">
-          <div className="container mx-auto py-10">
-            {filteredProducts.length === 0 ? (
-              <div className="text-center py-36  text-sm sm:text-2xl font-semibold">
-                No products found
-              </div>
-            ) : (
-              <ProductItems
-                productmodal={productmodal}
-                filteredProducts={filteredProducts}
-                setIshover={setIshover}
-                setIsHoverSetProduct={setIsHoverSetProduct}
-                isHoverSetProduct={isHoverSetProduct}
-                isHover={isHover}
-                selectThumbnail={selectThumbnail}
-                wishlist={wishlist}
-                whishlistbtn={whishlistbtn}
-                openModal={openModal}
-              />
-            )}
-          </div>
-        </section>
-     
-
+      <section className="py-10 px-5 sm:px-10">
+        <div className="container mx-auto py-10">
+          {filteredProducts.length === 0 ? (
+            <div className="text-center py-36  text-sm sm:text-2xl font-semibold">
+              No products found
+            </div>
+          ) : (
+            <ProductItems 
+              productmodal={productmodal}
+              filteredProducts={filteredProducts}
+              setIshover={setIshover}
+              setIsHoverSetProduct={setIsHoverSetProduct}
+              isHoverSetProduct={isHoverSetProduct}
+              isHover={isHover}
+              selectThumbnail={selectThumbnail}
+              wishlist={wishlist}
+              whishlistbtn={whishlistbtn}
+              openModal={openModal}
+            />
+          )}
+        </div>
+      </section>
     </div>
   );
 };

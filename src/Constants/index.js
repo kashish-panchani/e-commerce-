@@ -12,3 +12,5 @@ export const productmodal = (product, openModal) => {
   openModal(product);
 
 };
+
+

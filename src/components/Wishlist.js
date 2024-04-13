@@ -12,7 +12,6 @@ const Wishlist = () => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
 
-
   useEffect(() => {
     const savedWishlist = localStorage.getItem("wishlist");
     if (savedWishlist) {
@@ -111,7 +110,7 @@ const Wishlist = () => {
             >
               LOGIN
             </Link>
-          </div>
+          </div> 
         ) : (
           <div className="pb-10 pt-20  sm:pb-0 sm:container sm:mx-auto">
             {wishlist.length ? (
@@ -121,25 +120,25 @@ const Wishlist = () => {
                   <span className="font-normal ">{wishlist.length} items</span>
                 </div>
 
-                <div class="sm:mx-auto relative mx-1 sm:mt-10   max-w-full xl:max-w-full lg:max-w-[1000px]  md:max-w-[704px] sm:max-w-[576px] grid grid-cols-2  xl:m-10   xl:grid-cols-4 md:grid-cols-3  sm:grid-cols-2     sm:m-8  overflow-hidden sm:rounded-lg ">
+                <div class="sm:mx-auto relative mx-1 sm:mt-10   max-w-full xl:max-w-full lg:max-w-[1000px]  md:max-w-[704px] sm:max-w-[576px] grid grid-cols-2  xl:m-10   xl:grid-cols-4 md:grid-cols-3 lg:grid-cols-4   sm:grid-cols-2     sm:m-8  overflow-hidden sm:rounded-lg ">
                   {wishlist.map((product) => (
-                    <div class="relative  flex flex-wrap  max-w-xl  my-1 mx-1 sm:my-3 xl:mx-3 md:mx-2 sm:m-2 overflow-hidden sm:rounded-lg border hover:shadow-xl border-gray-100 bg-white shadow-md">
+                    <div class="relative  flex flex-wrap justify-center items-center    max-w-xl  my-1 mx-1 sm:my-3 xl:mx-3 md:mx-2 sm:m-2 overflow-hidden sm:rounded-lg border hover:shadow-xl border-gray-100 bg-white shadow-md">
                       <div className="w-full">
                         <button
-                          className="  float-right"
+                          className="float-right"
                           onClick={(e) => removeFromWishlist(product.id, e)}
                         >
                           <i class="fa-solid fa-xmark my-3 mr-2   sm:mr-5"></i>
                         </button>
                       </div>
                       <Link
-                        to="/ProductsDetail"
-                        className="relative  mx-3  flex h-52 overflow-hidden "
+                        to={`/ProductsDetail/${product.id}`}
+                        className="relative  mx-3  flex h-44 overflow-hidden "
                       >
                         <img
-                          className="object-cover  sm:rounded-xl w-full sm:w-[300px]"
+                          className="object-contain  sm:rounded-xl w-full sm:w-[300px]"
                           src={product.thumbnail}
-                          alt="product image"
+                          alt="product image" 
                           onClick={() => openModal(product)}
                         />
                       </Link>

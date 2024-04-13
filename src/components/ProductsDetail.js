@@ -1,20 +1,29 @@
-import React, {useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProductsDetail = () => {
+  const { id } = useParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [count, setCount] = useState(0);
   const [wishlist, setWishlist] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
- 
-  useEffect(() => {
-    const storedSelectedProduct = JSON.parse(
-      localStorage.getItem("selectedProduct")
-    );
-    if (storedSelectedProduct) setSelectedProduct(storedSelectedProduct);
+  const fetchProductDetails = async () => {
+    try {
+      const response = await fetch(`https://dummyjson.com/products/${id}`);
+      const data = await response.json();
+      setSelectedProduct(data);
+    } catch (error) {
+      console.error("Error fetching product details:", error);
+    }
+  };
 
+  useEffect(() => {
+    fetchProductDetails();
+  }, [id]);
+
+  useEffect(() => {
     const savedCartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
     setCartItems(savedCartItems);
     setCount(savedCartItems.length);
@@ -71,11 +80,12 @@ const ProductsDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   if (!selectedProduct) return null;
 
   return (
     <>
-      <div className="container mx-auto py-16 block md:flex md:justify-center">
+      <div className="container mx-auto py-20 block md:flex md:justify-center">
         <div className="flex justify-center items-center w-full">
           <div className="p-4 flex-wrap grid xl:grid-cols-2 md:grid-cols-2 md:p-0 gap-2">
             {selectedProduct.images.map((image, index) => (

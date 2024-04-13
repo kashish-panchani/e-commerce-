@@ -28,8 +28,8 @@ const ProductItems = (props) => {
           className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 "
           onClick={() => productmodal(product,openModal,setSearchTerm)}
         >
-          <div className="bg-white hover:shadow-xl rounded-lg shadow-lg overflow-hidden">
-            <Link to="/ProductsDetail">
+          <div className="bg-white border hover:shadow-xl rounded-lg shadow-lg overflow-hidden">
+             <Link to={`/ProductsDetail/${product.id}`}>
               <div
                 className="h-64 overflow-hidden"
                 onMouseEnter={() => {
@@ -41,11 +41,11 @@ const ProductItems = (props) => {
                 {isHoverSetProduct === product.id && isHover ? (
                   <Slider {...settings}>
                     {product.images.map((image, index) => (
-                      <div key={index}className="h-[232px]">
+                      <div key={index} className="h-[232px]">
                         <img
                           src={image}
                           alt={`Product ${index}`}
-                          className="h-full w-full object-cover"
+                          className="h-full w-full object-contain"
                           onClick={() => selectThumbnail(image)}
                         />
                       </div>
@@ -55,7 +55,7 @@ const ProductItems = (props) => {
                   <img
                     src={product.thumbnail}
                     alt={product.title}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-contain"
                   />
                 )}
               </div>

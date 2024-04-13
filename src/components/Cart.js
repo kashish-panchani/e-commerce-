@@ -7,7 +7,6 @@ const Cart = () => {
   const [itemToRemove, setItemToRemove] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -114,7 +113,7 @@ const Cart = () => {
 
                       <div class="ml-4 flex xl:w-[70%] lg:w-[70%] md:w-[70%] sm:w-[66%] w-[100%] sm:justify-between">
                         <div class="mt-6 sm:mt-0">
-                          <Link to="/ProductsDetail">
+                          <Link to={`/ProductsDetail/${item.id}`}>
                             <h2
                               class="text-[12px] xl:text-lg lg:text-base md:text-[14px] sm:text-[13px] font-bold text-gray-900"
                               onClick={() => openModal(item)}
@@ -182,7 +181,7 @@ const Cart = () => {
                   </>
                 ))}
               </div>
-              <div class=" my-2 sm:my-0 sm:mt-6 h-full sm:rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+              <div class=" my-2 sm:my-0 sm:mt-6 h-full sm:rounded-lg border bg-white py-6 px-4 shadow-md md:mt-0 md:w-1/3">
                 <div class="mb-2 flex justify-between">
                   <p class="text-gray-700  font-bold">Subtotal</p>
                   <p class="text-gray-700"></p>₹

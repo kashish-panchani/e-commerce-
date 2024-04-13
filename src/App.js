@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/login" exact element={<Login />} />
         <Route path="/cart" exact element={<Cart />} />
         <Route path="/wishlist" exact element={<Wishlist />} />
-        <Route path="/ProductsDetail" exact element={<ProductsDetail />} />
+        <Route path="/ProductsDetail/:id" exact element={<ProductsDetail />} />
 
         <Route
           path="/CategoryFilter/:type"
